@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bianca Cucini — musicista specializzata in musica medievale, liuto medievale, guiterne e oud. Scopri bio, progetti e video.">
+    <title>Bianca Cucini</title>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon-bianca.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-bianca-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-bianca-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-bianca-apple-touch.png">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style id="index-style">
+
+        :root {
+            --ink: #17191b;
+            --paper: #ffffff;
+            --azure: #4f83a0;
+            --azure-deep: #2c5468;
+            --rule: rgba(255,255,255,0.6);
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 300;
+            background: #17191b url('imgs/Bianca/Foto/Foto_sfondo_in_palette.jpg') no-repeat center 20% / cover;
+            color: #fff;
+            min-height: 100vh; /* fallback per browser senza dvh */
+            min-height: 100dvh; /* più affidabile su mobile: ignora la barra indirizzi che appare/scompare */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden; /* evita banda bianca laterale */
+            position: relative;
+        }
+
+        /* Sfumatura verso il colore ink: se la foto non arrivasse a coprire tutto
+           (barre del browser mobile, notch, ecc.) il fondo si mimetizza invece di
+           mostrare uno stacco netto. Solo su schermi piccoli: sui grandi schermi
+           la foto copre già perfettamente, quindi la sfumatura verrebbe rimossa. */
+        @media screen and (max-width: 768px) {
+            body::after {
+                content: '';
+                position: fixed;
+                left: 0; right: 0; bottom: 0;
+                height: 14vh;
+                background: linear-gradient(to bottom, rgba(23,25,27,0) 0%, rgba(23,25,27,0.85) 80%, #17191b 100%);
+                z-index: 0;
+                pointer-events: none;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(100deg, rgba(15,20,24,0.72) 0%, rgba(15,20,24,0.38) 45%, rgba(15,20,24,0.28) 100%);
+            z-index: 0;
+        }
+
+      h1 {
+          margin: 0;
+          padding: 0;
+          font-family: 'Josefin Sans', sans-serif;
+          font-weight: 300;
+          font-style: normal;
+          font-size: clamp(2rem, 6vw, 5.5rem); /* Adatta la dimensione ai dispositivi */
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          text-align: left;
+          width: 90%; /* Margine laterale automatico */
+          z-index: 1;
+          position: relative;
+          margin-top: -20px; /* Sposta il titolo un po' più in alto */
+      }
+
+      #nome {
+          margin-bottom: 0.1em; /* Spazio tra i due titoli */
+      }
+
+      #cognome {
+          font-weight: 500;
+      }
+
+      /* Contenitore generale per sottotitolo e pulsanti */
+      .strumenti-e-lingue {
+          display: flex;
+          flex-direction: column; /* Posiziona il sottotitolo sopra i pulsanti */
+          align-items: center;
+          justify-content: flex-start;
+
+      }
+
+      h2 {
+          font-family: 'Work Sans', sans-serif;
+          font-weight: 300;
+          font-size: clamp(1rem, 2vw, 2rem); /* Adatta la dimensione al dispositivo */
+          text-align: center;
+          width: 100%; /* Centro rispetto ai pulsanti */
+          color: #fff;
+          margin: 1em 0; /* Spazio sopra e sotto */
+          z-index: 1;
+          position: relative;
+      }
+
+      /* Contenitore pulsanti */
+      .button-container {
+          display: flex;
+          justify-content: center;
+          gap: 1em; /* Spazio tra i pulsanti */
+          flex-wrap: wrap; /* Permette il riadattamento su dispositivi piccoli */
+          margin-top: 15%; /* Spostato più in basso rispetto al titolo */
+          margin-left: 30%; /* Decentrato più a sinistra rispetto al centro */
+          width: 80%; /* Occupa l'80% della larghezza della pagina */
+          max-width: 600px; /* Limita la larghezza totale */
+          z-index: 1;
+          position: relative;
+      }
+
+      /* Stile dei pulsanti */
+      .lingua {
+          display: inline-block;
+          padding: clamp(0.6em, 1.5vw, 1em) clamp(1.5em, 3vw, 2em); /* Spazi adattivi */
+          font-family: 'Josefin Sans', sans-serif;
+          font-weight: 600;
+          font-size: clamp(0.75rem, 1.3vw, 0.9rem); /* Dimensione del testo responsive */
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-decoration: none;
+          color: #fff; /* Testo bianco */
+          text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+          background: transparent; /* Sfondo trasparente */
+          border: 1px solid var(--rule); /* Bordo sottile */
+          border-radius: 0;
+          transition: all 0.25s ease;
+      }
+
+      .lingua:hover {
+          background: rgba(255,255,255,0.1); /* Sfondo leggermente opaco al passaggio del mouse */
+          border-color: #fff;
+          color: #fff; /* Testo bianco */
+      }
+
+      /* Tre colori distinti, presi dalla foto stessa: azzurro della parete, ambra della viola, blu notte della gonna */
+      .lingua:nth-of-type(1) { border-color: #6fa3ae; color: #cfe7eb; }
+      .lingua:nth-of-type(1):hover { background: rgba(111,163,174,0.28); border-color: #cfe7eb; color: #fff; }
+
+      .lingua:nth-of-type(2) { border-color: #c98f4e; color: #f2d9b8; }
+      .lingua:nth-of-type(2):hover { background: rgba(201,143,78,0.28); border-color: #f2d9b8; color: #fff; }
+
+      .lingua:nth-of-type(3) { border-color: #5a6f95; color: #d3daea; }
+      .lingua:nth-of-type(3):hover { background: rgba(90,111,149,0.28); border-color: #d3daea; color: #fff; }
+
+      /* Media Query per dispositivi piccoli */
+      @media screen and (max-width: 600px) {
+          /* Disposizione verticale dei pulsanti */
+          .button-container {
+              flex-direction: column; /* Cambia la disposizione da riga a colonna */
+              align-items: center; /* Centra i pulsanti */
+              width: 100%; /* Adatta i pulsanti alla larghezza del contenitore */
+          }
+
+          h1 {
+          font-size: 10vw;
+          }
+
+          .lingua {
+              max-width:8em;
+              text-align: center; /* Centra il testo nei pulsanti */
+              margin-bottom: 0.8em; /* Spazio tra i pulsanti */
+              font-size: clamp(0.85rem, 3.4vw, 1rem); /* Aumenta la dimensione del testo per dispositivi piccoli */
+          }
+
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1 id="nome">Bianca</h1>
+    <h1 id="cognome">Cucini</h1>
+      <div class="button-container">
+        <a class="lingua" href="pages/home-en.html">English</a>
+        <a class="lingua" href="pages/home-it.html">Italiano</a>
+        <a class="lingua" href="pages/home-de.html">Deutsch</a>
+      </div>
+  </body>
+</html>
