@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bianca Cucini — violista da gamba, formatasi alla Schola Cantorum Basiliensis di Basilea con Paolo Pandolfo. Bio, concerti, media e contatti.">
+    <title>Bianca Cucini</title>
+    <link rel="icon" type="image/x-icon" href="../imgs/favicon-bianca.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../imgs/favicon-bianca-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../imgs/favicon-bianca-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../imgs/favicon-bianca-apple-touch.png">
+    <!-- Google Fonts: Josefin Sans per i titoli, Work Sans per il testo -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+
+
+    <!-- Stili personalizzati -->
+    <style>
+      :root {
+        /* Ricalibrata sul moodboard: avorio/pietra materici ↔ blu architettonico */
+        --ink: #303131;          /* carbone — testo principale */
+        --paper: #F3EEE4;        /* avorio caldo — sfondo dominante */
+        --paper-soft: #FAF8F3;   /* bianco caldo — superfici secondarie */
+        --stone: #D0C9BB;        /* pietra — bordi, divisori, campiture secondarie */
+        --accent: #294A5B;       /* blu profondo — colore identitario, uso selettivo */
+        --accent-light: #3d6377; /* variante più chiara del blu, per hover */
+        --accent-dark: #1c333f;  /* variante più scura del blu, per hover */
+        --cognac: #995C3F;       /* accento molto raro — legno, materia calda */
+        --slate: #737978;        /* metadata, categorie, informazioni secondarie */
+        --rule: var(--stone);
+      }
+      body {
+        overflow-x: hidden;
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 300;
+        font-size: 1.1em;
+        background-color: var(--paper);
+      }
+
+      h1, h2, h4, h5, h6 {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 400;
+        padding-left: 2em;
+        padding-top: 1.2em;
+      }
+
+      h3 {
+        font-family: 'Josefin Sans', sans-serif;
+        padding-top: 1.2em;
+        font-size: 1em;
+      }
+
+      p {
+        padding-left: 2em;
+        text-align: justify;
+      }
+
+      .container-fluid {
+        background-color: var(--paper);
+        color: var(--ink);
+        padding: 50px 0px;
+      }
+
+      .img-right {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+      }
+
+      .col-left {
+        padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+      }
+      .col-left p,
+      .col-left .box-kicker {
+        padding-left: 0;
+      }
+
+
+      /* ── Hero: nome + strumento, sopra la griglia a box ── */
+      .bio-hero {
+        padding: clamp(6rem, 13vw, 9rem) 0 1rem;
+        text-align: center;
+      }
+      .hero-name-wrap {
+        display: inline-block;
+        position: relative;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+      }
+      .bio-hero h1 {
+        padding: 0;
+        margin: 0;
+        font-size: 0.8em;
+        color: var(--accent);
+        text-align: center;
+        white-space: nowrap;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        position: relative;
+        z-index: 2;
+      }
+      .bio-hero .kicker {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 105%;
+        margin-top: -1.15em;
+        font-family: 'Work Sans', sans-serif;
+        font-size: 0.37em;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        text-align: center;
+        text-align-last: center;
+        color: var(--slate);
+        opacity: 0.6;
+        padding-left: 0;
+        z-index: 1;
+        text-shadow: 0 2px 4px rgba(48,49,49,0.25);
+      }
+
+      /* ── Layout a box: righe metà+metà alternate a
+         una banda intera, ogni box con un bordo netto e padding generoso;
+         solo alcune sezioni hanno un pannello colorato, il resto resta sul
+         fondo chiaro di base — nessuna fusione da forzare tra foto e sfondo ── */
+      .bio-box { padding: clamp(2.6rem, 6vw, 4rem) 0; }
+
+      /* Variante "etichetta sovrapposta" testata e apprezzata ma scartata per
+         Bianca (troppo audace per la sua identità) — riferimento per un altro
+         progetto: font-size: 1.8em; line-height: 1; text-indent: 0.4em;
+         margin: 0 0 -0.7em; position: relative; z-index: 1; opacity: 0.50; */
+      .box-kicker {
+        font-family: 'Work Sans', sans-serif;
+        font-size: 1.2em;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--slate);
+        opacity: 0.50;
+        margin: 0 0 0.1em;
+        text-shadow: 0 2px 4px rgba(48,49,49,0.15);
+      }
+
+      /* Colori di cornice — tre colori distinti della palette, come i bottoni
+         dell'index, per dare più contrasto invece di un'unica tinta uniforme */
+      .frame-amber  { --frame-color: var(--accent); }
+      .frame-navy   { --frame-color: var(--ink); }
+      .frame-teal   { --frame-color: var(--slate); }
+      .frame-cognac { --frame-color: var(--cognac); }
+
+      /* Riquadro con bordo per i testi: contiene etichetta + paragrafo,
+         altezza piena così combacia esattamente con la foto affiancata */
+      .box-frame {
+        box-sizing: border-box;
+        border: 1.5px solid var(--frame-color);
+        padding: clamp(1.8rem, 4vw, 3rem);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .box-frame p:not(.box-kicker) { padding-left: 0; margin-bottom: 0; text-align: justify; }
+      .box-frame .box-kicker { padding-left: 0; }
+      .box-frame .box-kicker + .box-kicker,
+      .box-frame p + .box-kicker,
+      .box-frame .awards-timeline + .box-kicker { margin-top: 1.4em; }
+
+      /* Foto: occupa tutta la colonna, nessun margine — la cornice è un
+         outline interno "stampato" sopra l'immagine, non un bordo esterno */
+      .box-photo-wrap {
+        display: block;
+        height: 100%;
+      }
+      .box-photo {
+        width: 100%;
+        height: 100%;
+        min-height: 320px;
+        object-fit: cover;
+        display: block;
+        outline: 1.5px solid var(--frame-color);
+        outline-offset: -54px;
+      }
+
+      /* Formazione — layout scorrevole: testo pieno, poi banda fotografica
+         a effetto parallax sotto, uno sopra l'altro come già accadeva da
+         mobile (nessuna colonna affiancata) */
+      #bio .band-inner { --frame-color: var(--cognac); }
+      .formazione-parallax {
+        position: relative;
+        width: 100%;
+        min-height: 60vh;
+        margin-top: 2.5em;
+        background-image: url("../imgs/Bianca/Foto/ritratto_home_1_stretta.jpeg");
+        background-attachment: fixed;
+        background-position: center 30%;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .attivita-parallax {
+        position: relative;
+        width: 100%;
+        min-height: 60vh;
+        background-image: url("../imgs/Bianca/Foto/ritratto_home_2_stretta.jpeg");
+        background-attachment: fixed;
+        background-position: center 30%;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      @media (max-width: 768px) {
+        .formazione-parallax{min-height: 42vh; background-image: url("../imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");}
+        .attivita-parallax{min-height: 42vh; background-image: url("../imgs/Bianca/Foto/ritratto_home_2_mini.jpeg"); }
+      }
+
+      /* Attività concertistica — banda intera, testo giustificato e disteso */
+      .band-section { background-color: var(--paper-soft); color: var(--ink); padding: clamp(2.6rem, 6vw, 4rem) 0; }
+      .band-inner {
+        --frame-color: var(--ink);
+        max-width: 980px;
+        margin: 0 auto;
+        border: 1.5px solid var(--frame-color);
+        padding: clamp(1.8rem, 4vw, 2.6rem) clamp(1.4rem, 4vw, 2.2rem);
+        box-sizing: border-box;
+      }
+      .band-inner .box-kicker { text-align: left; padding-left: 0; }
+      .band-inner p:not(.box-kicker) { text-align: justify; padding-left: 0; margin-bottom: 0; }
+
+      /* Premi e collaborazioni — riga unica: foto | testo | foto, allineati */
+      #premi-collab .row { align-items: stretch; }
+      #premi-collab .box-photo { object-position: center 18%; }
+      #premi-collab .box-frame { border: none; }
+
+      /* Premi — elenco a timeline, pulito e nella palette del sito */
+      .awards-timeline { list-style: none; margin: 0.9em 0 0; padding: 0; border-left: 2px solid var(--stone); }
+      .awards-year-group { position: relative; padding: 0 0 1.15em 1.5em; }
+      .awards-year-group:last-child { padding-bottom: 0; }
+      .awards-year-group::before {
+        content: ''; position: absolute; left: -6px; top: 0.3em;
+        width: 10px; height: 10px; border-radius: 50%;
+        background: var(--paper); border: 2px solid var(--accent);
+      }
+      .awards-year {
+        display: block; font-family: 'Josefin Sans', sans-serif; font-weight: 500;
+        font-size: 1.05em; letter-spacing: 0.04em; color: var(--accent); margin-bottom: 0.4em;
+      }
+      .awards-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5em; }
+      .awards-items li { font-size: 0.88em; line-height: 1.4; transition: transform 0.25s ease, opacity 0.25s ease; transform-origin: left center; }
+      /* Interattività: transform (non font-size) così l'ingrandimento è solo visivo e non altera l'altezza della riga né le foto accanto */
+      .awards-timeline:hover .awards-items li { transform: scale(0.88); opacity: 0.55; }
+      .awards-timeline .awards-items li:hover { transform: scale(1.12); opacity: 1; position: relative; z-index: 2; }
+      .awards-timeline .awards-items li:hover .award-place { opacity: 1; }
+      .award-tier { font-weight: 500; color: var(--cognac); }
+      .award-dash { color: var(--stone); margin: 0 0.2em; }
+      .award-place { color: var(--ink); opacity: 0.82; }
+      .award-tag {
+        display: inline-block; margin-left: 0.4em; padding: 0.04em 0.42em;
+        font-size: 0.68em; letter-spacing: 0.06em; font-weight: 500;
+        color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
+        vertical-align: 1px; opacity: 0.85;
+      }
+      .collab-cta {
+        display: block; text-align: right; margin-top: 0.25em;
+        font-size: 0.8em; letter-spacing: 0.02em; color: var(--accent);
+        text-decoration: none; opacity: 0.85; transition: opacity 0.2s, color 0.2s;
+      }
+      .collab-cta:hover { opacity: 1; color: var(--accent-dark); text-decoration: underline; }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        body {
+          font-size: 1em;
+        }
+        h1, h2, h4, h5, h6 {
+          padding-left: 1.2em;
+          padding-top: 0.8em;
+        }
+        p {
+          padding-left: 1.2em;
+          line-height: 1.4;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .social-icons-mobile i {
+          font-size: 1.2em !important;
+        }
+      }
+
+    /* ── Compact footer ── */
+    .site-footer {
+      background-color: var(--paper);
+      padding: 0.9rem 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      max-width: 1140px;
+      margin: 0 auto;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.8em;
+      color: var(--slate);
+    }
+    .footer-copy { opacity: 0.9; }
+    .footer-social a { color: var(--slate); margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--accent); }
+    .footer-contact-link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+    .footer-contact-link:hover { color: var(--accent-dark); }
+    @media (max-width: 576px) {
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+  </head>
+  <body data-spy="scroll" data-target=".navbar" data-offset="50">
+      <style>
+    .navbar { background-color: var(--paper); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: none; }
+    .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: var(--ink) !important; }
+    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent) !important; }
+    .navbar-toggler { border-color: var(--rule); }
+    .navbar-toggler-icon { filter: invert(1); }
+    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(48,49,49,0.12); padding: 0.3rem 0; min-width: 170px; }
+    .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--paper-soft); color: var(--accent); }
+    .dropdown-item.disabled { color: var(--stone); pointer-events: none; }
+    .dropdown-divider { border-color: var(--rule); margin: 0.2rem 0; }
+  </style>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
+    <a class="navbar-brand d-block d-sm-none" href="../index.html">
+      <img src="../imgs/favicon-bianca.ico" alt="Logo" style="width:20px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+      <a class="navbar-brand justify-content-center" href="../index.html">Home</a>
+      <ul class="navbar-nav text-md-nowrap">
+        <li class="nav-item"><a class="nav-link active" href="home-it.html">Bianca Cucini</a></li>
+        <li class="nav-item"><a class="nav-link " href="quinton-it.html">Quinton</a></li>
+        <li class="nav-item"><a class="nav-link " href="collaborazioni-it.html">Collaborazioni</a></li>
+        <li class="nav-item"><a class="nav-link " href="media-it.html">Media</a></li>
+        <li class="nav-item"><a class="nav-link " href="agenda-it.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="contatti-it.html">Contatti</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <div class="bio-hero">
+      <div class="hero-name-wrap">
+        <h1>Bianca Cucini</h1>
+        <p class="kicker"> Viola da gamba</p>
+      </div>
+    </div>
+
+    <!-- Riga 1 — Formazione (foto a banda con effetto parallax, poi testo pieno) -->
+    <div class="formazione-parallax" role="img" aria-label="Bianca Cucini"></div>
+
+    <div class="container-fluid bio-box" id="bio">
+      <div class="container">
+        <div class="band-inner">
+          <p class="box-kicker">Formazione</p>
+          <p>Bianca Cucini, nata nel 2001 a Firenze, ha iniziato i suoi studi musicali all’età di quattro anni con il pianoforte e a sette anni con la viola da gamba presso la Scuola di Musica di Fiesole, dove fino al 2019 è stata allieva di Bettina Hoffmann. Dal 2020 al 2025 ha studiato a Basilea con Paolo Pandolfo presso la Schola Cantorum Basiliensis, dove ha conseguito una laurea triennale e una laurea magistrale in Performance Musicale. Attualmente sta terminando i suoi studi con un master in Pedagogia musicale sotto la guida di Francois Joubert Caillet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Riga 2 — Attività concertistica (banda intera) -->
+    <div class="attivita-parallax" role="img" aria-label="Bianca Cucini"></div>
+
+    <div class="band-section" id="attivita">
+      <div class="container">
+        <div class="band-inner">
+          <p class="box-kicker">Attività concertistica</p>
+          <p>Attualmente svolge la sua attività concertistica in numerosi paesi europei, tra cui Svizzera (Erasmus Klingt Festival, Les Riches Heures de Valere – Sion Festival), Germania (Internationale Händel-Festspiele Göttingen, Musikfestspiele Potsdam Sanssouci, FEL!X Festival della Filarmonica di Colonia, BachFest Leipzig), Italia (Monteverdi Festival Cremona), Spagna (Festival Contratemps di Sant Cugat – Barcellona), Belgio (Brussels Early Music Festival FestiVita!), Repubblica Ceca (Collegium 1704 Vzlet, Praga), Austria (Innsbrucker Festwochen), Portogallo, Francia e Lituania, tra gli altri.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Riga 3 — Premi e Collaborazioni unite: foto | testo | foto -->
+    <div class="container-fluid bio-box" id="premi-collab">
+      <div class="row">
+        <div class="col-md-3 p-0">
+          <div class="box-photo-wrap">
+            <img src="../imgs/Bianca/Foto/Foto_sfondo_in_palette_2.png" alt="Bianca Cucini in concerto" class="box-photo frame-teal" loading="lazy">
+          </div>
+        </div>
+        <div class="col-md-6 col-left">
+          <div class="box-frame frame-navy">
+            <p class="box-kicker">Premi e concorsi</p>
+            <ul class="awards-timeline">
+              <li class="awards-year-group">
+                <span class="awards-year">2023</span>
+                <ul class="awards-items">
+                  <li><span class="award-tier">Primo Premio</span><span class="award-dash">–</span><span class="award-place">Musikfestspiele Potsdam Sanssouci</span><span class="award-tag">DE</span></li>
+                </ul>
+              </li>
+              <li class="awards-year-group">
+                <span class="awards-year">2024</span>
+                <ul class="awards-items">
+                  <li><span class="award-tier">Premio del Pubblico</span><span class="award-dash">–</span><span class="award-place">Concorso Händel di Göttingen</span><span class="award-tag">DE</span></li>
+                  <li><span class="award-tier">Primo Premio</span><span class="award-dash">–</span><span class="award-place">Concorso Biagio Marini di Neuburg</span><span class="award-tag">DE</span></li>
+                </ul>
+              </li>
+              <li class="awards-year-group">
+                <span class="awards-year">2025</span>
+                <ul class="awards-items">
+                  <li><span class="award-tier">Primo Premio</span><span class="award-dash">–</span><span class="award-place">Concorso Telemann di Magdeburgo</span><span class="award-tag">DE</span></li>
+                  <li><span class="award-tier">Primo Premio</span><span class="award-dash">–</span><span class="award-place">Concorso Orlando di Lasso a Landshut</span><span class="award-tag">DE</span></li>
+                  <li><span class="award-tier">Premio del Pubblico</span><span class="award-dash">–</span><span class="award-place">Concorso Orlando di Lasso a Landshut</span><span class="award-tag">DE</span></li>
+                  <li><span class="award-tier">Premio della Società Tedesca della Viola da Gamba</span><span class="award-dash">–</span><span class="award-place">Concorso Orlando di Lasso a Landshut</span><span class="award-tag">DE</span></li>
+                </ul>
+              </li>
+              <li class="awards-year-group">
+                <span class="awards-year">2026</span>
+                <ul class="awards-items">
+                  <li><span class="award-tier">Premio EUBO</span> per “Ensemble più promettente”<span class="award-dash">–</span><span class="award-place">International Young Artist Awards di York</span><span class="award-tag">UK</span></li>
+                  <li><span class="award-tier">Premio speciale della giuria</span><span class="award-dash">–</span><span class="award-place">International Young Artist Awards di York</span><span class="award-tag">UK</span> — per “Eccezionale talento musicale”, unico premio assegnato ad un singolo individuo in tutte le passate edizioni del festival, dalla sua creazione nel 1985.</li>
+                </ul>
+              </li>
+            </ul>
+            <p class="box-kicker">Collaborazioni</p>
+            <p>Collabora con importanti ensemble barocchi come Gli Incogniti, Voces Suaves, La Chimera e Mare Nostrum. Tra le sue collaborazioni più significative figurano concerti in Svizzera e Germania (Kölner Philharmonie) come gambista solista con Gli Incogniti e Amandine Beyer.</p>
+            <a href="collaborazioni-it.html" class="collab-cta">Scopri di più →</a>
+            <!-- <p>
+              <div class="dropdown d-inline-block" style="display:block!important; text-align:center;">
+                <button class="btn btn-outline-light btn-lg rounded-pill my-4 dropdown-toggle" type="button" data-toggle="dropdown">
+                  Progetti
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="fragmenta-it.html">Fragmenta</a>
+  <a class="dropdown-item" href="quinton-it.html">Quinton</a>
+  <a class="dropdown-item" href="collaborazioni-it.html">Collaborazioni</a>
+                </div>
+              </div>
+            </p> -->
+          </div>
+        </div>
+        <div class="col-md-3 p-0">
+          <div class="box-photo-wrap">
+            <img src="../imgs/Bianca/Foto/Foto_ritratto_4.jpg" alt="Bianca Cucini, ritratto" class="box-photo frame-amber" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- sezione media 
+    <div class="container-fluid" id="media">
+      <div class="container my-5 px-4" style="background-color: #9caf88;">
+        <h3 class="text-dark py-4 text-center">Nuovi video</h3>
+        <div class="row text-center">
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="embed-responsive embed-responsive-4by3 mb-3" style="min-height: 280px;">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sgkfTYNmHe0" allowfullscreen></iframe>
+            </div>            
+            <p class="text-dark">Quinton, <em>Bacchu-ber</em></p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="embed-responsive embed-responsive-4by3 mb-3" style="min-height: 280px;">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/qTzaeGGDn1s?si=T8Tn04bTEPHsBa1q" allowfullscreen></iframe>
+            </div>
+            <p class="text-dark"><em>Partete core</em> (lauda del XV secolo)</p>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-5">
+            <div class="embed-responsive embed-responsive-4by3 mb-3" style="min-height: 280px;">
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j0uMccDwhQ8" allowfullscreen></iframe>
+            </div>
+            <p class="text-dark">Quinton, <em>Suite de Noëls provençaux</em></p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="https://youtube.com/@biancacucini?si=C22iZKnqprZl4fms" class="btn btn-outline-light btn-lg rounded-pill my-4">
+            Tutti i video
+          </a>
+        </div>
+        
+      </div>
+    </div>
+    -->
+
+    <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-copy">Foto: Sergio Bermúdez Bullido, Hana Görlichová, Modestas Endriuška.</span>
+      <span class="footer-copy" style="opacity:0.7;">© 2026 Bianca Cucini. Tutti i diritti riservati.</span>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/biiancacucini/" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/bianca.cucini.1/" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://youtube.com/@biancacucini?si=C22iZKnqprZl4fms" title="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+      </div>
+      <a href="contatti-it.html" class="footer-contact-link">Contatti</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function() {
+      var navs = document.querySelectorAll('.navbar');
+      if (!navs.length) return;
+      function onScroll() {
+        var scrolled = window.scrollY > 10;
+        navs.forEach(function(nav) {
+          nav.classList.toggle('navbar-scrolled', scrolled);
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
