@@ -15,21 +15,24 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
     :root {
-      --ink: #17191b;
-      --paper: #f6f2e8;
-      --paper-soft: #f0ebdf;
-      --mist: #dde6e2;
-      --azure: #4f83a0;
-      --azure-deep: #2c5468;
-      --slate: #9a9d9f;
-      --rule: rgba(23,25,27,0.13);
+      /* Stessa palette della home */
+      --ink: #303131;
+      --paper: #F3EEE4;
+      --paper-soft: #FAF8F3;
+      --stone: #D0C9BB;
+      --accent: #294A5B;
+      --accent-light: #3d6377;
+      --accent-dark: #1c333f;
+      --cognac: #995C3F;
+      --slate: #737978;
+      --rule: var(--stone);
     }
     html { scroll-behavior: smooth; }
     body {
       overflow-x: hidden;
       font-family: 'Work Sans', sans-serif;
       font-weight: 300;
-      font-size: 1.05em;
+      font-size: 1.1em;
       background-color: var(--paper);
       color: var(--ink);
       margin: 0; padding: 0;
@@ -38,7 +41,8 @@
 
     /* ── Hero ── */
     .agenda-hero {
-      background: url('imgs/saraScura.jpg') center center / cover no-repeat;
+      background: url('imgs/Bianca/Foto/grattacieli.jpeg') center center / cover no-repeat;
+      background-attachment: fixed;
       min-height: 55vh;
       display: flex;
       align-items: flex-end;
@@ -54,23 +58,31 @@
       position: relative;
       z-index: 1;
       color: #fff;
-      padding-left: 2rem;
+      text-align: center;
+      width: 100%;
+      padding: 0 2rem;
     }
     .agenda-hero-title h1 {
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 300;
+      line-height: 1;
       margin: 0;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
     .agenda-hero-title p {
       font-family: 'Work Sans', sans-serif;
-      font-size: 1em;
+      font-size: clamp(0.85rem, 1.8vw, 1.2rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      text-align: center;
+      color: rgba(255,255,255,0.75);
       opacity: 0.85;
-      margin: 0.3rem 0 0;
+      margin: -1.75em 0 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
     }
     @media (max-width: 768px) {
-      .agenda-hero { min-height: 40vh; }
+      .agenda-hero { min-height: 40vh; background-attachment: scroll; }
     }
 
     /* ── Section headers ── */
@@ -79,7 +91,7 @@
       font-size: 0.78em;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--azure);
+      color: var(--accent);
       margin-bottom: 0.3rem;
     }
     .section-title {
@@ -95,90 +107,135 @@
 
     /* ── Timeline concerti ── */
     .timeline { position: relative; padding-left: 0; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 90px;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: var(--rule);
-    }
     .concert-item {
       display: flex;
       gap: 0;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2.6rem;
       position: relative;
       align-items: flex-start;
     }
     .concert-date {
-      flex: 0 0 90px;
-      text-align: right;
+      flex: 0 0 124px;
+      width: 124px;
       padding-right: 24px;
-      padding-top: 2px;
+      padding-top: 0;
     }
-    .concert-date .day {
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: 300;
-      font-size: 2em;
-      line-height: 1;
-      color: var(--azure-deep);
+    .date-badge {
+      --frame-color: var(--accent);
+      width: 100px;
+      min-height: 100px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--frame-color);
+      text-align: center;
+      padding: 0.5rem 0.3rem;
+    }
+    .frame-amber  { --frame-color: var(--accent); }
+    .frame-navy   { --frame-color: var(--ink); }
+    .frame-teal   { --frame-color: var(--slate); }
+    .frame-cognac { --frame-color: var(--cognac); }
+    /* ── Upcoming map + photo banner ──
+       La mappa occupa lo spazio restante (flex: 1), la foto mantiene
+       le sue proporzioni naturali ed è sempre alta quanto la mappa
+       (height fissa, width auto): niente ritaglio, si adatta da sola. */
+    .upcoming-banner {
+      display: flex;
+      align-items: stretch;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .upcoming-map-wrap { flex: 1 1 auto; min-width: 0; }
+    .upcoming-map {
+      height: 420px;
+      width: 100%;
+      border: 1.5px solid var(--cognac);
+      box-shadow: 0 6px 20px rgba(48,49,49,0.12);
+    }
+    .upcoming-photo-wrap { flex: 0 0 auto; }
+    .upcoming-photo {
+      height: 420px;
+      width: auto;
       display: block;
+      outline: 1.5px solid var(--frame-color);
+      outline-offset: -14px;
     }
-    .concert-date .month-year {
-      font-family: 'Work Sans', sans-serif;
-      font-size: 0.72em;
-      color: var(--azure);
-      letter-spacing: 0.1em;
+    @media (max-width: 767px) {
+      .upcoming-banner { flex-direction: column; align-items: stretch; gap: 1rem; }
+      .upcoming-map-wrap { width: 100%; }
+      .upcoming-map { height: 280px; }
+      .upcoming-photo-wrap { flex: 1 1 auto; width: 100%; }
+      .upcoming-photo { width: 100%; height: auto; }
+    }
+    .date-badge .cd-month {
+      display: block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.6em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 0.35em;
+      overflow-wrap: break-word;
     }
-    .timeline-dot {
-      position: absolute;
-      left: 85px;
-      top: 8px;
-      width: 11px;
-      height: 11px;
-      border-radius: 0;
-      background: var(--azure);
-      border: 2px solid var(--azure-deep);
-      z-index: 1;
+    .date-badge .cd-day {
+      display: block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 500;
+      font-size: 2.1em;
+      line-height: 1;
+      color: var(--frame-color);
+    }
+    .date-badge .cd-end {
+      display: block;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.58em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-top: 0.4em;
     }
     .concert-body {
       flex: 1;
       padding-left: 28px;
-      padding-top: 0;
+      padding-top: 0.1rem;
     }
-    .concert-program {
+    /* Sezione 2: il luogo, elemento più visibile dopo la data */
+    .concert-location {
       font-family: 'Josefin Sans', sans-serif;
       font-weight: 400;
-      font-size: 1.05em;
+      font-size: 1.35em;
       color: var(--ink);
-      margin-bottom: 0.2rem;
+      line-height: 1.3;
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      text-underline-offset: 0.3em;
+      margin-bottom: 0.55rem;
     }
-    .concert-venue {
-      font-size: 0.88em;
+    /* Sezione 3: tutte le informazioni restanti, in tono minore */
+    .concert-festival,
+    .concert-time,
+    .concert-ensemble,
+    .concert-program {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.85em;
       color: var(--slate);
-      margin-bottom: 0.15rem;
-    }
-    .concert-venue i { color: var(--azure); margin-right: 5px; }
-    .concert-note {
-      font-size: 0.82em;
-      color: var(--slate);
-      font-style: italic;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .concert-social a {
-      color: var(--azure);
+      color: var(--accent);
       font-size: 0.95em;
       margin-right: 10px;
       text-decoration: none;
       transition: color 0.2s;
     }
-    .concert-social a:hover { color: var(--azure-deep); }
+    .concert-social a:hover { color: var(--accent-dark); }
     .concert-map-link {
       font-size: 0.82em;
-      color: var(--azure);
+      color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px dotted var(--azure);
+      border-bottom: 1px dotted var(--accent);
       cursor: pointer;
       background: none;
       border-top: none;
@@ -187,21 +244,26 @@
       padding: 0;
       font-family: 'Work Sans', sans-serif;
     }
-    .concert-map-link:hover { color: var(--azure-deep); }
+    .concert-map-link:hover { color: var(--accent-dark); }
+    /* ── Evidenzia temporaneamente la voce raggiunta dal popup della mappa ── */
+    .concert-highlight { animation: concertFlash 2s ease; }
+    @keyframes concertFlash {
+      0% { background-color: var(--paper-soft); }
+      100% { background-color: transparent; }
+    }
     @media (max-width: 576px) {
-      .timeline::before { left: 60px; }
-      .concert-date { flex: 0 0 60px; padding-right: 16px; }
-      .concert-date .day { font-size: 1.5em; }
-      .timeline-dot { left: 55px; }
+      .concert-date { flex: 0 0 108px; width: 108px; padding-right: 16px; }
+      .date-badge { width: 92px; min-height: 92px; }
       .concert-body { padding-left: 20px; }
+      .concert-location { font-size: 1.1em; }
     }
 
     /* ── Archive map ── */
     #map-archive {
       height: 420px;
       border-radius: 0;
-      border: 1px solid var(--rule);
-      box-shadow: none;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(48,49,49,0.12);
       margin-bottom: 3rem;
     }
     .archive-note {
@@ -210,10 +272,6 @@
       margin-top: 0.5rem;
       font-style: italic;
     }
-      .htl-hint-mobile  { display: block; }
-      .htl-header { flex-direction: column; align-items: flex-start; }
-    }
-
 
     /* ── Archive timeline (mirrored) ── */
     .timeline-archive { position: relative; margin-top: 4rem; padding-right: 8rem; }
@@ -221,54 +279,26 @@
       display: flex;
       flex-direction: row-reverse;
       margin-bottom: 0;
-      padding-bottom: 2.4rem;
+      padding-bottom: 2.6rem;
       position: relative;
       align-items: flex-start;
     }
-    /* Vertical line: right border on the body+dot wrapper */
-    .archive-item::after {
-      content: '';
-      position: absolute;
-      right: 90px;
-      top: 8px;
-      bottom: 0;
-      width: 1px;
-      background: var(--rule);
-      z-index: 0;
-    }
-    .timeline-archive > .archive-item:last-child::after {
-      display: none;
-    }
     .archive-date {
-      flex: 0 0 90px;
-      text-align: left;
+      flex: 0 0 120px;
+      width: 120px;
       padding-left: 20px;
-      padding-top: 2px;
-    }
-    .archive-date .day { font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:2em; line-height:1; color:var(--azure); display:block; }
-    .archive-date .month-year { font-family:'Work Sans',sans-serif; font-size:0.72em; color:var(--azure); letter-spacing:0.1em; text-transform:uppercase; }
-    .archive-dot {
-      position: absolute;
-      right: 85px; top: 8px;
-      width: 11px; height: 11px;
-      border-radius: 0;
-      background: var(--mist);
-      border: 2px solid var(--azure);
-      z-index: 1;
+      padding-top: 0;
     }
     .archive-body {
       flex: 1;
       padding-right: 28px;
+      padding-top: 0.1rem;
       text-align: right;
     }
-    .archive-body .concert-program { font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:1.05em; color:var(--ink); margin-bottom:0.2rem; }
-    .archive-body .concert-venue { font-size:0.88em; color:var(--slate); margin-bottom:0.15rem; }
-    .archive-body .concert-note { font-size:0.82em; color:var(--slate); font-style:italic; }
     @media (max-width:576px) {
-      .archive-item::after { right:60px; }
-      .archive-date { flex:0 0 60px; padding-left:12px; }
-      .archive-date .day { font-size:1.5em; }
-      .archive-dot { right:55px; }
+      .timeline-archive { padding-right: 0; }
+      .archive-date { flex:0 0 108px; width: 108px; padding-left:16px; }
+      .date-badge { width: 92px; min-height: 92px; }
       .archive-body { padding-right:20px; }
     }
 
@@ -285,10 +315,10 @@
       font-family: 'Josefin Sans', sans-serif;
       font-size: 1.4em;
       font-weight: 400;
-      color: var(--azure-deep);
+      color: var(--accent-dark);
       transition: color 0.2s;
     }
-    .year-toggle:hover .year-label { color: var(--azure); }
+    .year-toggle:hover .year-label { color: var(--accent); }
     .year-count {
       font-family: 'Work Sans', sans-serif;
       font-size: 0.78em;
@@ -298,7 +328,7 @@
     .year-chevron {
       margin-left: auto;
       font-size: 0.9em;
-      color: var(--azure);
+      color: var(--accent);
       transition: transform 0.25s;
     }
     .year-toggle.collapsed .year-chevron { transform: rotate(-90deg); }
@@ -309,17 +339,17 @@
     .year-divider { border: none; border-top: 1px solid var(--rule); margin: 0.3rem 0 1.2rem; }
 
     /* ── Compact footer ── */
-    .site-footer { background-color: var(--paper-soft); padding: 0.9rem 2rem; border-top: 1px solid var(--rule); }
+    .site-footer { background-color: var(--paper); padding: 0.9rem 2rem; border-top: 1px solid var(--rule); }
     .footer-inner {
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 0.4rem; max-width: 1140px; margin: 0 auto;
       font-family: 'Work Sans', sans-serif; font-size: 0.8em; color: var(--slate);
     }
-    .footer-copy { opacity: 0.85; }
+    .footer-copy { opacity: 0.9; }
     .footer-social a { color: var(--slate); margin-right: 0.55rem; font-size: 1.05em; transition: color 0.2s; }
-    .footer-social a:hover { color: var(--azure); }
-    .footer-contact-link { color: var(--azure-deep); text-decoration: none; border-bottom: 1px dotted var(--azure); }
-    .footer-contact-link:hover { color: var(--azure); }
+    .footer-social a:hover { color: var(--accent); }
+    .footer-contact-link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+    .footer-contact-link:hover { color: var(--accent-dark); }
     @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
 
     /* ── Empty state ── */
@@ -336,7 +366,7 @@
       font-family: 'Work Sans', sans-serif;
       font-size: 0.95em;
     }
-    .popup-date { font-size: 0.8em; color: var(--azure); letter-spacing: 0.08em; text-transform: uppercase; }
+    .popup-date { font-size: 0.8em; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
     .popup-program { font-family: 'Josefin Sans', sans-serif; font-size: 1em; margin: 2px 0; }
     .popup-venue { font-size: 0.85em; color: var(--slate); }
   </style>
@@ -345,15 +375,17 @@
 
   <!-- ══ NAVBAR ══ -->
     <style>
-    .navbar { background-color: var(--ink); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: 0 1px 0 rgba(0,0,0,0.05); }
+    .navbar { background-color: var(--paper); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: none; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; }
-    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; transition: color 0.2s; }
-    .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
-    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(23,25,27,0.12); padding: 0.3rem 0; min-width: 170px; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: var(--ink) !important; }
+    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; transition: color 0.2s; }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent) !important; }
+    .navbar-toggler { border-color: var(--rule); }
+    .navbar-toggler-icon { filter: invert(1); }
+    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(48,49,49,0.12); padding: 0.3rem 0; min-width: 170px; }
     .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
-    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--mist); color: var(--azure-deep); }
-    .dropdown-item.disabled { color: #ccc; pointer-events: none; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--paper-soft); color: var(--accent); }
+    .dropdown-item.disabled { color: var(--stone); pointer-events: none; }
     .dropdown-divider { border-color: var(--rule); margin: 0.2rem 0; }
   </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
@@ -388,6 +420,16 @@
   <section class="container py-5" id="prossime-date">
     <p class="section-label">Calendario</p>
     <h2 class="section-title">Prossime date</h2>
+
+    <!-- ══ MAPPA PROSSIMI CONCERTI ══ -->
+    <div class="upcoming-banner">
+      <div class="upcoming-map-wrap">
+        <div id="map-upcoming" class="upcoming-map"></div>
+      </div>
+      <div class="upcoming-photo-wrap">
+        <img src="imgs/Bianca/Foto/viaggi.jpeg" alt="Bianca Cucini in viaggio" class="upcoming-photo frame-cognac" loading="lazy">
+      </div>
+    </div>
 
     <!-- ╔══════════════════════════════════════════════════════════════╗
          ║  COME AGGIUNGERE UN CONCERTO                                ║
@@ -436,7 +478,7 @@
      Il sito si aggiorna entro qualche minuto dal salvataggio.
   ════════════════════════════════════════════════════════════════════ */
 
-  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUdrJfXjvEKnMsDzhOGtYW9f4cRE7iQ_YVOido6kxzLbi4yiLu4GrFz-UKcFOBDJ6Lj7NHtf5JQmRd/pub?gid=0&single=true&output=csv';
+  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQwq0Sgn_ptcKAm437zvsWvl6MWd1nIruGdLtm2Tkc3llKFXy4arHmOAYwwo-PjjUtqSvPdeb5jVVRg/pub?gid=0&single=true&output=csv';
 
   /* ── Fallback: usato se il foglio Google non è raggiungibile ── */
   var FALLBACK_CONCERTS = [
@@ -752,14 +794,16 @@
   /* ── helpers ── */
   var DAYS   = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
   var MONTHS = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  var MONTHS_FULL = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
   function fmtDate(d) {
     var dt = new Date(d + 'T00:00:00');
     return {
-      day:   dt.getDate(),
-      wd:    DAYS[dt.getDay()],
-      month: MONTHS[dt.getMonth()],
-      year:  dt.getFullYear()
+      day:       dt.getDate(),
+      wd:        DAYS[dt.getDay()],
+      month:     MONTHS[dt.getMonth()],
+      monthFull: MONTHS_FULL[dt.getMonth()],
+      year:      dt.getFullYear()
     };
   }
 
@@ -779,6 +823,20 @@
            ' – ' + d2.getDate() + ' ' + MONTHS[d2.getMonth()] + ' ' + d2.getFullYear();
   }
 
+  function fmtTime(t) {
+    if (!t) return '';
+    var m = String(t).match(/(\d{1,2})\D+(\d{1,2})/);
+    if (!m) return '';
+    var hh = ('0' + m[1]).slice(-2);
+    var mm = ('0' + m[2]).slice(-2);
+    return 'ore ' + hh + ':' + mm;
+  }
+
+  var FRAME_CLASSES = ['frame-amber', 'frame-navy', 'frame-teal', 'frame-cognac'];
+  function randomFrameClass() {
+    return FRAME_CLASSES[Math.floor(Math.random() * FRAME_CLASSES.length)];
+  }
+
   function isUpcoming(c) {
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var end = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)
@@ -787,10 +845,32 @@
     return end >= today;
   }
 
-  function shareUrl(type, concert) {
-    if (type === 'fb') return concert.facebook || 'https://www.facebook.com/bianca.cucini.1/';
-    if (type === 'ig') return concert.instagram || 'https://www.instagram.com/biiancacucini/';
-    return '#';
+  /* ── id univoco per concerto, per collegare marker della mappa e voce in elenco ── */
+  function concertId(c) {
+    var key = (c.venue || c.city || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+    return 'concert-' + c.date + '-' + key;
+  }
+
+  /* ── scorre fino alla voce del concerto in elenco, riaprendo l'anno se serve ── */
+  function scrollToConcert(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var needsExpand = false;
+    var yearBody = el.closest ? el.closest('.year-body') : null;
+    if (yearBody) {
+      var yearGroup = yearBody.closest('.year-group');
+      var toggleBtn = yearGroup ? yearGroup.querySelector('.year-toggle') : null;
+      if (toggleBtn && toggleBtn.classList.contains('collapsed')) {
+        toggleYear(yearBody.id, toggleBtn);
+        needsExpand = true;
+      }
+    }
+    var doScroll = function() {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('concert-highlight');
+      setTimeout(function() { el.classList.remove('concert-highlight'); }, 2000);
+    };
+    if (needsExpand) { setTimeout(doScroll, 350); } else { doScroll(); }
   }
 
   /* ── render everything ── */
@@ -809,43 +889,73 @@
       document.getElementById('no-upcoming').style.display = 'none';
       upcoming.forEach(function(c) {
         var d = fmtDate(c.date);
-        var endLine = '';
-        if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        var hasEnd = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/);
+        var badgeEnd = '';
+        if (hasEnd) {
           var de = fmtDate(c.date_end);
-          endLine = '<span class="month-year" style="display:block;color:var(--azure);">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+          badgeEnd = '<span class="cd-end">– ' + de.day + ' ' + de.monthFull + (de.year !== d.year ? ' ' + de.year : '') + '</span>';
         }
-        var social = '';
-        if (c.facebook) social += '<a href="' + c.facebook + '" target="_blank" rel="noopener noreferrer" title="Condividi su Facebook"><i class="fab fa-facebook"></i></a>';
-        if (c.instagram) social += '<a href="' + c.instagram + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>';
+        var time = fmtTime(c.time);
+        var location = c.venue ? (c.venue + ' — ' + c.city) : c.city;
+        var social = c.info ? '<a href="' + c.info + '" target="_blank" rel="noopener noreferrer" title="Maggiori informazioni"><i class="fas fa-external-link-alt"></i></a>' : '';
         tl.innerHTML +=
-          '<div class="concert-item">' +
+          '<div class="concert-item" id="' + concertId(c) + '">' +
           '  <div class="concert-date">' +
-          '    <span class="day">' + d.day + '</span>' +
-          '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
-          endLine +
+          '    <div class="date-badge ' + randomFrameClass() + '">' +
+          '      <span class="cd-month">' + d.monthFull + '</span>' +
+          '      <span class="cd-day">' + d.day + '</span>' +
+          badgeEnd +
+          '    </div>' +
           '  </div>' +
-          '  <div class="timeline-dot"></div>' +
           '  <div class="concert-body">' +
-          '    <div class="concert-program">' + c.program + '</div>' +
-          '    <div class="concert-venue"><i class="fas fa-map-marker-alt"></i>' + c.venue + ' — ' + c.city + '</div>' +
-          (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
+          '    <div class="concert-location">' + location + '</div>' +
+          (c.festival ? '<div class="concert-festival">' + c.festival + '</div>' : '') +
+          (time ? '<div class="concert-time">' + time + '</div>' : '') +
+          (c.ensemble ? '<div class="concert-ensemble">Ensemble ' + c.ensemble + '</div>' : '') +
+          (c.program ? '<div class="concert-program">Programma: ' + c.program + '</div>' : '') +
           (social ? '<div class="concert-social">' + social + '</div>' : '') +
           '  </div>' +
           '</div>';
       });
     }
 
+    /* ── upcoming map ── */
+    if (window._mapU) { window._mapU.remove(); window._mapU = null; }
+    var mapU = L.map('map-upcoming', { zoomControl: true, scrollWheelZoom: false });
+    window._mapU = mapU;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc', maxZoom: 19
+    }).addTo(mapU);
+    var upcomingIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:10px;height:10px;border-radius:0;background:#995C3F;border:2px solid #303131;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
+      iconSize: [11,11], iconAnchor: [5.5,5.5]
+    });
+    var upcomingBounds = [];
+    upcoming.forEach(function(c) {
+      if (!c.lat || !c.lng) return;
+      var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
+                  '<div class="popup-program">' + c.program + '</div>' +
+                  '<div class="popup-venue">' + (c.venue ? c.venue + '<br>' : '') + c.city + '</div>' +
+                  '<a href="#' + concertId(c) + '" class="concert-map-link" onclick="scrollToConcert(\'' + concertId(c) + '\'); return false;">Vedi in elenco →</a>';
+      L.marker([c.lat, c.lng], {icon: upcomingIcon}).addTo(mapU).bindPopup(popup);
+      upcomingBounds.push([c.lat, c.lng]);
+    });
+    if (upcomingBounds.length > 0) mapU.fitBounds(upcomingBounds, {padding: [40,40]});
+    else mapU.setView([46, 8], 4);
+
     /* ── archive map ── */
     if (window._mapA) { window._mapA.remove(); window._mapA = null; }
     var mapA = L.map('map-archive', { zoomControl: true, scrollWheelZoom: false });
     window._mapA = mapA;
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd', maxZoom: 19
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc', maxZoom: 19
     }).addTo(mapA);
     var archiveIcon = L.divIcon({
       className: '',
-      html: '<div style="width:10px;height:10px;border-radius:0;background:#4f83a0;border:2px solid #2c5468;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
+      html: '<div style="width:10px;height:10px;border-radius:0;background:#294A5B;border:2px solid #1c333f;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>',
       iconSize: [11,11], iconAnchor: [5.5,5.5]
     });
     var archiveBounds = [];
@@ -853,8 +963,9 @@
       if (!c.lat || !c.lng) return;
       var popup = '<div class="popup-date">' + fmtDateRange(c.date, c.date_end) + '</div>' +
                   '<div class="popup-program">' + c.program + '</div>' +
-                  '<div class="popup-venue">' + c.venue + '<br>' + c.city + '</div>' +
-                  (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '');
+                  '<div class="popup-venue">' + (c.venue ? c.venue + '<br>' : '') + c.city + '</div>' +
+                  (c.note ? '<div class="popup-venue" style="font-style:italic;">' + c.note + '</div>' : '') +
+                  '<a href="#' + concertId(c) + '" class="concert-map-link" onclick="scrollToConcert(\'' + concertId(c) + '\'); return false;">Vedi in elenco →</a>';
       L.marker([c.lat, c.lng], {icon: archiveIcon}).addTo(mapA).bindPopup(popup);
       archiveBounds.push([c.lat, c.lng]);
     });
@@ -893,27 +1004,30 @@
       var rows = '';
       concerts.forEach(function(c) {
         var d = fmtDate(c.date);
-        var endLine = '';
-        if (c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        var hasEnd = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/);
+        var badgeEnd = '';
+        if (hasEnd) {
           var de = fmtDate(c.date_end);
-          endLine = '<span class="month-year" style="display:block;">– ' + de.day + ' ' + de.month + ' ' + de.year + '</span>';
+          badgeEnd = '<span class="cd-end">– ' + de.day + ' ' + de.monthFull + (de.year !== d.year ? ' ' + de.year : '') + '</span>';
         }
+        var time = fmtTime(c.time);
+        var location = c.venue ? (c.venue + ' — ' + c.city) : c.city;
         rows +=
-          '<div class="archive-item">' +
+          '<div class="archive-item" id="' + concertId(c) + '">' +
           '  <div class="archive-date">' +
-          '    <span class="day">' + d.day + '</span>' +
-          '    <span class="month-year">' + d.wd + ' ' + d.month + ' ' + d.year + '</span>' +
-          endLine +
+          '    <div class="date-badge ' + randomFrameClass() + '">' +
+          '      <span class="cd-month">' + d.monthFull + '</span>' +
+          '      <span class="cd-day">' + d.day + '</span>' +
+          badgeEnd +
+          '    </div>' +
           '  </div>' +
-          '  <div class="archive-dot"></div>' +
           '  <div class="archive-body">' +
-          '    <div class="concert-program">' + c.program + '</div>' +
-          '    <div class="concert-venue">' + c.venue + ' — ' + c.city + '</div>' +
-          (c.note ? '<div class="concert-note">' + c.note + '</div>' : '') +
-          (c.facebook || c.instagram ? '<div class="concert-social" style="text-align:right;">' +
-            (c.facebook ? '<a href="' + c.facebook + '" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>' : '') +
-            (c.instagram ? '<a href="' + c.instagram + '" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>' : '') +
-          '</div>' : '') +
+          '    <div class="concert-location">' + location + '</div>' +
+          (c.festival ? '<div class="concert-festival">' + c.festival + '</div>' : '') +
+          (time ? '<div class="concert-time">' + time + '</div>' : '') +
+          (c.ensemble ? '<div class="concert-ensemble">Ensemble ' + c.ensemble + '</div>' : '') +
+          (c.program ? '<div class="concert-program">Programma: ' + c.program + '</div>' : '') +
+          (c.info ? '<div class="concert-social" style="text-align:right;"><a href="' + c.info + '" target="_blank" rel="noopener noreferrer" title="Maggiori informazioni"><i class="fas fa-external-link-alt"></i></a></div>' : '') +
           '  </div>' +
           '</div>';
       });
