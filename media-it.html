@@ -22,6 +22,7 @@
       --azure-deep: #2c5468;
       --slate: #9a9d9f;
       --rule: rgba(23,25,27,0.13);
+      --photo-dark: #090200; /* colore campionato dal bordo superiore di quinton1.JPG */
     }
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; font-family: 'Work Sans', sans-serif; font-weight: 300; font-size: 1.05em;
@@ -29,49 +30,77 @@
     h1,h2,h3,h4,h5,h6 { font-family: 'Josefin Sans', sans-serif; font-weight: 400; }
 
     /* ── Navbar ── */
-    .navbar { background-color: var(--ink); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: 0 1px 0 rgba(0,0,0,0.05); }
+    .navbar { background-color: var(--photo-dark); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background-color 0.25s ease; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; }
-    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; transition: color 0.2s; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: #fff !important; transition: color 0.25s ease; }
+    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; transition: color 0.25s ease; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+    /* Sopra lo sfondo chiaro della pagina la navbar torna chiara, in sincronia
+       con il dot-nav laterale (stesso IntersectionObserver sulla foto hero) */
+    .navbar.light { background-color: var(--paper); }
+    .navbar.light .navbar-brand { color: var(--ink) !important; }
+    .navbar.light .nav-link { color: rgba(23,25,27,0.65) !important; }
+    .navbar.light .nav-link:hover, .navbar.light .nav-link.active { color: var(--azure-deep) !important; }
+    .navbar.light .navbar-toggler-icon { filter: invert(1); }
     .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(23,25,27,0.12); padding: 0.3rem 0; min-width: 170px; }
     .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
     .dropdown-item:hover, .dropdown-item:focus { background-color: var(--mist); color: var(--azure-deep); }
 
     /* ── Hero ── */
     .media-hero {
-      background: url('imgs/media-hero-1.jpg') center 30% / cover no-repeat;
+      background: url('imgs/Bianca/Foto/Quinton/quinton1-hero.jpg') center 25% / cover no-repeat;
       min-height: 55vh;
       display: flex; align-items: flex-end; padding-bottom: 3rem;
-      position: relative; margin-top: 56px;
+      position: relative;
     }
     .media-hero::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(23,25,27,0.05) 0%, rgba(23,25,27,0.55) 100%);
     }
     .hero-title { position: relative; z-index: 1; text-align: center; width: 100%; padding: 0 2rem; }
-    .hero-title h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; color: #fff; margin: 0; letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero-title h1 { font-size: clamp(2rem, 6vw, 4rem); color: var(--paper); margin: 0; letter-spacing: 0.04em; text-transform: uppercase; }
     .hero-title p { font-family: 'Work Sans', sans-serif; font-size: 0.9em; color: rgba(255,255,255,0.75); letter-spacing: 0.18em; text-transform: uppercase; margin: 0.5rem 0 0; }
 
     /* ── Dot nav ── */
     .project-dotnav {
-      position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+      position: fixed; right: 18px; top: 30%; transform: translateY(-50%);
       z-index: 950; display: flex; flex-direction: column; gap: 14px; align-items: flex-end;
     }
-    .project-dotnav a { display: flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; }
+    .project-dotnav a {
+      display: flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
+      transform-origin: right center; transition: transform 0.25s ease, opacity 0.25s ease;
+    }
     .dotnav-label { font-family: 'Work Sans', sans-serif; font-size: 0.78em; color: var(--azure-deep);
-      opacity: 1; transform: translateX(0); transition: opacity 0.2s, transform 0.2s; white-space: nowrap; pointer-events: none; }
-    .dotnav-dot { width: 8px; height: 8px; border-radius: 0; background: var(--rule); border: 1.5px solid var(--slate); transition: background 0.2s, transform 0.2s; flex-shrink: 0; }
-    .project-dotnav a:hover .dotnav-label, .project-dotnav a.active .dotnav-label { opacity: 1; transform: translateX(0); }
-    .project-dotnav a.active .dotnav-dot { background: var(--azure); border-color: var(--azure-deep); transform: scale(1.35); }
+      white-space: nowrap; pointer-events: none; transition: color 0.2s; }
+    .dotnav-dot { width: 8px; height: 8px; border-radius: 0; background: var(--rule); border: 1.5px solid var(--slate); transition: background 0.2s, border-color 0.2s, transform 0.2s; flex-shrink: 0; }
+    .project-dotnav a.active .dotnav-dot { background: var(--azure-deep); border-color: var(--azure-deep); transform: scale(1.35); }
     .project-dotnav a:hover .dotnav-dot { background: var(--azure); border-color: var(--azure); }
+    /* Interattività: al passaggio del mouse sulla colonna le voci non selezionate si riducono,
+       quella sotto il cursore risalta (stesso comportamento della pagina Collaborazioni) */
+    .project-dotnav:hover a { transform: scale(0.88); opacity: 0.55; }
+    .project-dotnav a:hover { transform: scale(1.12); opacity: 1; position: relative; z-index: 2; }
+    /* Sopra la foto hero: etichette e pallini chiari per restare leggibili sullo sfondo scuro */
+    .project-dotnav.on-dark .dotnav-label { color: rgba(255,255,255,0.85); }
+    .project-dotnav.on-dark a:hover .dotnav-label,
+    .project-dotnav.on-dark a.active .dotnav-label { color: #fff; }
+    .project-dotnav.on-dark .dotnav-dot { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.15); }
+    .project-dotnav.on-dark a.active .dotnav-dot,
+    .project-dotnav.on-dark a:hover .dotnav-dot { background: var(--paper); border-color: var(--paper); }
     @media (max-width: 768px) { .project-dotnav { display: none; } }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .project-dotnav { top: 26%; }
+      .project-dotnav a,
+      .project-dotnav a:hover,
+      .project-dotnav:hover a { transform: scale(0.88); opacity: 0.55; }
+      .project-dotnav a.active,
+      .project-dotnav a.active:hover { transform: scale(1.12); opacity: 1; }
+    }
 
     /* ── Section headers ── */
     .section-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.78em; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--azure); margin-bottom: 0.3rem; }
-    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 300; color: var(--ink);
-      margin-bottom: 1.8rem; padding-bottom: 0; border: none; letter-spacing: 0.03em; text-transform: uppercase; }
+    .section-title { font-size: 1.6em; font-weight: 400; color: var(--azure-deep);
+      margin-bottom: 1.8rem; padding-bottom: 0; border: none; }
 
     /* ── Media sections ── */
     .media-section { padding: 4rem 0; }
@@ -153,6 +182,18 @@
     .gallery-item:hover img { transform: scale(1.04); opacity: 1; }
     .gallery-item.hidden { display: none; }
 
+    /* Su mobile la griglia diventa un carosello orizzontale scorrevole,
+       per evitare uno scroll verticale troppo lungo con tante foto */
+    @media (max-width: 576px) {
+      .gallery-grid {
+        display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory; gap: 10px; padding-bottom: 0.6rem;
+        scrollbar-width: none;
+      }
+      .gallery-grid::-webkit-scrollbar { display: none; }
+      .gallery-item { flex: 0 0 78%; scroll-snap-align: center; }
+    }
+
     /* ── Lightbox ── */
     .lightbox-overlay {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -188,12 +229,47 @@
       justify-items: center;
     }
     .ig-col { width: 100%; max-width: 480px; }
+    .fb-col { grid-column: 1 / -1; display: flex; justify-content: center; }
     .ig-note { color: var(--slate); font-size: 0.9em; margin-top: 0.5rem; }
     .ig-note a:hover { color: var(--ink); }
+
+    /* ── Facebook card ── */
+    .fb-card {
+      background: var(--paper); border: 1px solid var(--rule); height: 100%; box-sizing: border-box;
+      padding: 2.6rem 1.8rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .fb-card-icon { font-size: 2.8rem; color: var(--azure-deep); margin-bottom: 0.9rem; }
+    .fb-card-name { font-family: 'Josefin Sans', sans-serif; font-size: 1.15em; color: var(--ink);
+      margin: 0 0 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .fb-card-desc { color: var(--slate); font-size: 0.9em; margin: 0 0 1.5rem; }
+    .fb-card-btn {
+      display: inline-block; padding: 0.7rem 1.6rem; border: 1px solid var(--ink); color: var(--ink);
+      text-decoration: none; font-family: 'Josefin Sans', sans-serif; font-size: 0.82em; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .fb-card-btn:hover { background: var(--ink); color: #fff; }
 
     /* ── SoundCloud ── */
     .sc-wrap { margin-top: 0; }
     .audio-note { font-size: 0.78em; color: var(--slate); font-style: italic; margin-top: 0.6rem; }
+
+    /* ── Press kit ── */
+    .presskit-lead { max-width: 640px; margin: 0 auto 2rem; text-align: center; color: var(--slate); font-size: 0.98em; }
+    .presskit-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .presskit-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 1.8rem; border: 1px solid var(--ink); color: var(--ink);
+      text-decoration: none; border-radius: 0;
+      font-family: 'Josefin Sans', sans-serif; font-size: 0.85em; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .presskit-btn:hover { background: var(--ink); color: #fff; }
+    .presskit-btn i { font-size: 1.1em; }
+    .presskit-disclaimer { max-width: 640px; margin: 1.2rem auto 0; text-align: center; color: var(--slate); font-size: 0.78em; font-style: italic; }
+    .presskit-disclaimer a { color: var(--azure-deep); text-decoration: none; border-bottom: 1px dotted var(--azure); }
+    .presskit-disclaimer a:hover { color: var(--azure); }
+
     @media (max-width: 576px) { .footer-inner { justify-content: center; text-align: center; } }
   </style>
 </head>
@@ -221,12 +297,13 @@
 
   <nav class="project-dotnav" id="mediaDotNav" aria-label="Navigazione">
     <a href="#video"><span class="dotnav-label">Video</span><span class="dotnav-dot"></span></a>
-    <a href="#audio"><span class="dotnav-label">Audio</span><span class="dotnav-dot"></span></a>
+    <!-- <a href="#audio"><span class="dotnav-label">Audio</span><span class="dotnav-dot"></span></a> -->
     <a href="#galleria"><span class="dotnav-label">Galleria</span><span class="dotnav-dot"></span></a>
+    <a href="#presskit"><span class="dotnav-label">Press Kit</span><span class="dotnav-dot"></span></a>
     <a href="#social"><span class="dotnav-label">Social</span><span class="dotnav-dot"></span></a>
   </nav>
 
-  <div class="media-hero">
+  <div class="media-hero" id="mediaHero">
     <div class="hero-title">
       <h1>Media</h1></div>
   </div>
@@ -236,40 +313,58 @@
     <div class="container py-2">
       <h2 class="section-title">Video</h2>
       <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
-          <div class="media-card" onclick="openVideo('UHS6Y1-KZVc', this)" role="button" tabindex="0">
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('s-EKUNkh1Lo', this)" role="button" tabindex="0">
             <div class="media-card-thumb">
-              <img src="https://img.youtube.com/vi/UHS6Y1-KZVc/mqdefault.jpg" alt="Marginalia, <em>Partete core</em>" loading="lazy">
+              <img src="https://img.youtube.com/vi/s-EKUNkh1Lo/mqdefault.jpg" alt="J.S. Bach, <em>Bourrée II</em>" loading="lazy">
               <div class="play-btn"><i class="fas fa-play"></i></div>
             </div>
-            <div class="media-card-caption">Marginalia, <em>Partete core</em></div>
+            <div class="media-card-caption">J.S. Bach, <em>Bourrée II</em></div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
-          <div class="media-card" onclick="openVideo('sgkfTYNmHe0', this)" role="button" tabindex="0">
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('zAhnMVSlnEs', this)" role="button" tabindex="0">
             <div class="media-card-thumb">
-              <img src="https://img.youtube.com/vi/sgkfTYNmHe0/mqdefault.jpg" alt="Quinton, <em>Bacchu-ber</em>" loading="lazy">
+              <img src="https://img.youtube.com/vi/zAhnMVSlnEs/mqdefault.jpg" alt="M. Marais, <em>Chaconne en Rondeau</em>" loading="lazy">
               <div class="play-btn"><i class="fas fa-play"></i></div>
             </div>
-            <div class="media-card-caption">Quinton, <em>Bacchu-ber</em></div>
+            <div class="media-card-caption">M. Marais, <em>Chaconne en Rondeau</em></div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
-          <div class="media-card" onclick="openVideo('qTzaeGGDn1s', this)" role="button" tabindex="0">
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('UkggW5xdYos', this)" role="button" tabindex="0">
             <div class="media-card-thumb">
-              <img src="https://img.youtube.com/vi/qTzaeGGDn1s/mqdefault.jpg" alt="<em>Partete core</em> (lauda del XV secolo)" loading="lazy">
+              <img src="https://img.youtube.com/vi/UkggW5xdYos/mqdefault.jpg" alt="Orpheus Ensemble Basel, <em>Damigella tutta bella</em>" loading="lazy">
               <div class="play-btn"><i class="fas fa-play"></i></div>
             </div>
-            <div class="media-card-caption"><em>Partete core</em> (lauda del XV secolo)</div>
+            <div class="media-card-caption">Orpheus Ensemble Basel, <em>Damigella tutta bella</em></div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
-          <div class="media-card" onclick="openVideo('j0uMccDwhQ8', this)" role="button" tabindex="0">
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('TXSPucEosIE', this)" role="button" tabindex="0">
             <div class="media-card-thumb">
-              <img src="https://img.youtube.com/vi/j0uMccDwhQ8/mqdefault.jpg" alt="Quinton, <em>Suite de Noëls provençaux</em>" loading="lazy">
+              <img src="https://img.youtube.com/vi/TXSPucEosIE/mqdefault.jpg" alt="BallArte Ensemble, <em>A room of our own</em>" loading="lazy">
               <div class="play-btn"><i class="fas fa-play"></i></div>
             </div>
-            <div class="media-card-caption">Quinton, <em>Suite de Noëls provençaux</em></div>
+            <div class="media-card-caption">BallArte Ensemble, <em>A room of our own</em></div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('9hwIo_v2L6U', this)" role="button" tabindex="0">
+            <div class="media-card-thumb">
+              <img src="https://img.youtube.com/vi/9hwIo_v2L6U/mqdefault.jpg" alt="Tra Noi, <em>Dumbarton's Drums</em>" loading="lazy">
+              <div class="play-btn"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="media-card-caption">Tra Noi, <em>Dumbarton's Drums</em></div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="media-card" onclick="openVideo('M715ikNu3Ew', this)" role="button" tabindex="0">
+            <div class="media-card-thumb">
+              <img src="https://img.youtube.com/vi/M715ikNu3Ew/mqdefault.jpg" alt="Tra Noi, York International Young Artists Competition" loading="lazy">
+              <div class="play-btn"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="media-card-caption">Tra Noi, York International Young Artists Competition</div>
           </div>
         </div>
       </div>
@@ -281,7 +376,7 @@
     </div>
   </section>
 
-  <!-- ══ AUDIO ══ -->
+  <!-- ══ AUDIO ══ (disattivata: Bianca non ha ancora un account SoundCloud/Spotify)
   <section class="media-section" id="audio" style="background:var(--mist); padding: 3rem 0;">
     <div class="container">
       <div style="max-width:720px; margin:0 auto; padding: 0 1rem;">
@@ -295,26 +390,58 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- ══ GALLERIA ══ -->
   <section class="media-section" id="galleria">
     <div class="container py-2">
       <h2 class="section-title">Galleria fotografica</h2>
-      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Tutte</button> <button class="gallery-filter-btn" data-filter="marginalia">Marginalia</button> <button class="gallery-filter-btn" data-filter="quinton">Quinton</button> <button class="gallery-filter-btn" data-filter="troisanneaux">Trois Anneaux</button></div>
+      <div class="gallery-filters"><button class="gallery-filter-btn active" data-filter="tutti">Tutte</button> <button class="gallery-filter-btn" data-filter="quinton">Quinton</button> <button class="gallery-filter-btn" data-filter="violadagamba">Viola da gamba</button> <button class="gallery-filter-btn" data-filter="collaborazioni">Collaborazioni</button></div>
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(0)"><img src="imgs/marginalia/lucca-codex.jpg" alt="Marginalia — Lucca Codex" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(1)"><img src="imgs/marginalia/magl-1040-1.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(2)"><img src="imgs/marginalia/magl-1040-2.jpg" alt="Marginalia — Magl 1040" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(3)"><img src="imgs/marginalia/marginalia-certaldo.png" alt="Marginalia — Certaldo" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(4)"><img src="imgs/marginalia/marginalia-milano.png" alt="Marginalia — Milano" loading="lazy"></div>
-        <div class="gallery-item" data-project="marginalia" onclick="openLightbox(5)"><img src="imgs/marginalia/marginalia-programma.jpg" alt="Marginalia — Programma" loading="lazy"></div>
-        <div class="gallery-item" data-project="quinton" onclick="openLightbox(6)"><img src="imgs/chordacordis/chordacordis-1.png" alt="Quinton" loading="lazy"></div>
-        <div class="gallery-item" data-project="quinton" onclick="openLightbox(7)"><img src="imgs/chordacordis/chordacordis-2.jpg" alt="Quinton" loading="lazy"></div>
-        <div class="gallery-item" data-project="quinton" onclick="openLightbox(8)"><img src="imgs/chordacordis/sara-colin-1.png" alt="Quinton — Sara e Colin" loading="lazy"></div>
-        <div class="gallery-item" data-project="quinton" onclick="openLightbox(9)"><img src="imgs/chordacordis/sara-colin-cesab.jpg" alt="Quinton — CESAB" loading="lazy"></div>
-        <div class="gallery-item" data-project="troisanneaux" onclick="openLightbox(10)"><img src="imgs/troisanneaux/trois-anneaux-1.jpg" alt="Trois Anneaux" loading="lazy"></div>
-        <div class="gallery-item" data-project="troisanneaux" onclick="openLightbox(11)"><img src="imgs/troisanneaux/trois-anneaux-2.jpg" alt="Trois Anneaux" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton1.JPG" onclick="openLightbox(0)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton1.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton2.JPG" onclick="openLightbox(1)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton2.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton3.jpg" onclick="openLightbox(2)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton3.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton4.PNG" onclick="openLightbox(3)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton4.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton5.jpeg" onclick="openLightbox(4)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton5.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/Foto_ritratto_3.jpg" onclick="openLightbox(5)"><img src="imgs/Bianca/Foto/Quinton/thumbs/Foto_ritratto_3.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="quinton" data-full="imgs/Bianca/Foto/Quinton/quinton.jpg" onclick="openLightbox(6)"><img src="imgs/Bianca/Foto/Quinton/thumbs/quinton.jpg" alt="Quinton" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_ritratto_1_PRINCIPALE_originale.jpg" onclick="openLightbox(7)"><img src="imgs/Bianca/Foto/thumbs/Foto_ritratto_1_PRINCIPALE_originale.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_ritratto_4.jpg" onclick="openLightbox(8)"><img src="imgs/Bianca/Foto/thumbs/Foto_ritratto_4.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_Modestas_Endriu_ka%20(52)_Original.JPG" onclick="openLightbox(9)"><img src="imgs/Bianca/Foto/thumbs/Foto_Modestas_Endriu_ka%20(52)_Original.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_ritratto_2.jpg" onclick="openLightbox(10)"><img src="imgs/Bianca/Foto/thumbs/Foto_ritratto_2.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_sfondo_in_palette.jpg" onclick="openLightbox(11)"><img src="imgs/Bianca/Foto/thumbs/Foto_sfondo_in_palette.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Foto_sfondo_in_palette_2.png" onclick="openLightbox(12)"><img src="imgs/Bianca/Foto/thumbs/Foto_sfondo_in_palette_2.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Possibile_foto_contatti.jpg" onclick="openLightbox(13)"><img src="imgs/Bianca/Foto/thumbs/Possibile_foto_contatti.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/Possibile_foto_contatti_2.jpg" onclick="openLightbox(14)"><img src="imgs/Bianca/Foto/thumbs/Possibile_foto_contatti_2.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/ritratto_home_1.jpeg" onclick="openLightbox(15)"><img src="imgs/Bianca/Foto/thumbs/ritratto_home_1.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="violadagamba" data-full="imgs/Bianca/Foto/ritratto_home_2.jpeg" onclick="openLightbox(16)"><img src="imgs/Bianca/Foto/thumbs/ritratto_home_2.jpg" alt="Viola da gamba" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Tra_noi.jpeg" onclick="openLightbox(17)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Tra_noi.jpg" alt="Tra Noi" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Zuléia.jpeg" onclick="openLightbox(18)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Zuléia.jpg" alt="Ensemble Zuléia" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Orpheus.jpeg" onclick="openLightbox(19)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Orpheus.jpg" alt="Orpheus Ensemble Basel" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Duo_Cucini_Gonzàlez.jpeg" onclick="openLightbox(20)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Duo_Cucini_Gonzàlez.jpg" alt="Duo Cucini-González" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/RYnsky.jpeg" onclick="openLightbox(21)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/RYnsky.jpg" alt="Ensemble Rýnský" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Incogniti.jpeg" onclick="openLightbox(22)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Incogniti.jpg" alt="Gli Incogniti" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Mare_nostrum.jpeg" onclick="openLightbox(23)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Mare_nostrum.jpg" alt="Mare Nostrum" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Primary_colors.jpeg" onclick="openLightbox(24)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Primary_colors.jpg" alt="Primary Colors" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/Little_light_consort.jpeg" onclick="openLightbox(25)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/Little_light_consort.jpg" alt="The Little Light Consort" loading="lazy"></div>
+        <div class="gallery-item" data-project="collaborazioni" data-full="imgs/Bianca/Foto/Collaborazioni/La_Chimera.jpeg" onclick="openLightbox(26)"><img src="imgs/Bianca/Foto/Collaborazioni/thumbs/La_Chimera.jpg" alt="La Chimera" loading="lazy"></div>
+        <div class="gallery-item" data-project="" data-full="imgs/Bianca/Foto/Foto_sfondo_in_palette_3.jpg" onclick="openLightbox(27)"><img src="imgs/Bianca/Foto/thumbs/Foto_sfondo_in_palette_3.jpg" alt="Bianca Cucini" loading="lazy"></div>
+        <div class="gallery-item" data-project="" data-full="imgs/Bianca/Foto/Foto_sfondo_in_palette_4.png" onclick="openLightbox(28)"><img src="imgs/Bianca/Foto/thumbs/Foto_sfondo_in_palette_4.jpg" alt="Bianca Cucini" loading="lazy"></div>
+        <div class="gallery-item" data-project="" data-full="imgs/Bianca/Foto/viaggi.jpeg" onclick="openLightbox(29)"><img src="imgs/Bianca/Foto/thumbs/viaggi.jpg" alt="Bianca Cucini" loading="lazy"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ══ PRESS KIT ══ -->
+  <section class="media-section" id="presskit">
+    <div class="container py-2 text-center">
+      <h2 class="section-title">Press Kit</h2>
+      <p class="presskit-lead">In questa sezione è possibile scaricare i materiali informativi su Bianca Cucini: il dossier di presentazione e una selezione di fotografie ad alta risoluzione.</p>
+      <div class="presskit-buttons">
+        <a class="presskit-btn" href="press_kit/Dossier_BiancaCucini_2026.pdf" download><i class="fas fa-file-pdf"></i> Scarica il Dossier</a>
+        <a class="presskit-btn" href="press_kit/Photos_BiancaCucini_2026.zip" download><i class="fas fa-file-archive"></i> Scarica le Foto</a>
+      </div>
+      <p class="presskit-disclaimer">I file sono protetti da password: prima di scaricarli, richiedi il consenso e la password di accesso direttamente a Bianca Cucini tramite la pagina <a href="contatti-it.html">Contatti</a>.</p>
     </div>
   </section>
 
@@ -323,9 +450,17 @@
     <div class="container py-2">
       <h2 class="section-title">Social</h2>
             <div class="ig-grid">
-        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DM7ktZINexB/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DM7ktZINexB/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DM7ktZINexB/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Sara Maria Fantini (@saram.fantini)</a></p></div></blockquote></div>
-        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DIwZ66NtmWl/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DIwZ66NtmWl/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DIwZ66NtmWl/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Sara Maria Fantini (@saram.fantini)</a></p></div></blockquote></div>
-        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DCTxNClN7ns/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DCTxNClN7ns/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DCTxNClN7ns/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Sara Maria Fantini (@saram.fantini)</a></p></div></blockquote></div>
+        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXPnraPAKzr/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DXPnraPAKzr/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DXPnraPAKzr/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Bianca Cucini (@biiancacucini)</a></p></div></blockquote></div>
+        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DNaMPqTi5bt/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DNaMPqTi5bt/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DNaMPqTi5bt/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Bianca Cucini (@biiancacucini)</a></p></div></blockquote></div>
+        <div class="ig-col"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/Da5mC27gOjD/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/Da5mC27gOjD/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Visualizza questo post su Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Da5mC27gOjD/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Un post condiviso da Bianca Cucini (@biiancacucini)</a></p></div></blockquote></div>
+        <div class="ig-col fb-col">
+          <div class="fb-card">
+            <i class="fab fa-facebook-square fb-card-icon"></i>
+            <p class="fb-card-name">Bianca Cucini</p>
+            <p class="fb-card-desc">Segui gli aggiornamenti e gli eventi su Facebook</p>
+            <a class="fb-card-btn" href="https://www.facebook.com/bianca.cucini.1/" target="_blank" rel="noopener noreferrer">Segui su Facebook</a>
+          </div>
+        </div>
       </div>
       <script async src="//www.instagram.com/embed.js"></script>
     </div>
@@ -364,7 +499,7 @@
 
     // ── Dot nav scroll spy ─────────────────────────────────────────────
     (function() {
-      var sections = ['video','audio','galleria','social'];
+      var sections = ['video','galleria','presskit','social'];
       var links = document.querySelectorAll('.project-dotnav a');
       function setActive() {
         var scrollY = window.scrollY + 140;
@@ -382,6 +517,22 @@
     })();
   </script>
 
+  <script>
+    (function() {
+      var dotnav = document.querySelector('.project-dotnav');
+      var navbar = document.getElementById('mainNavbar');
+      var hero = document.getElementById('mediaHero');
+      if (!hero || !('IntersectionObserver' in window)) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (dotnav) dotnav.classList.toggle('on-dark', entry.isIntersecting);
+          if (navbar) navbar.classList.toggle('light', !entry.isIntersecting);
+        });
+      }, { threshold: 0.4 });
+      observer.observe(hero);
+    })();
+  </script>
+
   <div class="lightbox-overlay" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
     <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
@@ -392,18 +543,36 @@
 
   <script>
     var galleryData = [
-      {src: "imgs/marginalia/lucca-codex.jpg", alt: "Marginalia — Lucca Codex", project: "marginalia"},
-      {src: "imgs/marginalia/magl-1040-1.jpg", alt: "Marginalia — Magl 1040", project: "marginalia"},
-      {src: "imgs/marginalia/magl-1040-2.jpg", alt: "Marginalia — Magl 1040", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-certaldo.png", alt: "Marginalia — Certaldo", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-milano.png", alt: "Marginalia — Milano", project: "marginalia"},
-      {src: "imgs/marginalia/marginalia-programma.jpg", alt: "Marginalia — Programma", project: "marginalia"},
-      {src: "imgs/chordacordis/chordacordis-1.png", alt: "Quinton", project: "quinton"},
-      {src: "imgs/chordacordis/chordacordis-2.jpg", alt: "Quinton", project: "quinton"},
-      {src: "imgs/chordacordis/sara-colin-1.png", alt: "Quinton — Sara e Colin", project: "quinton"},
-      {src: "imgs/chordacordis/sara-colin-cesab.jpg", alt: "Quinton — CESAB", project: "quinton"},
-      {src: "imgs/troisanneaux/trois-anneaux-1.jpg", alt: "Trois Anneaux", project: "troisanneaux"},
-      {src: "imgs/troisanneaux/trois-anneaux-2.jpg", alt: "Trois Anneaux", project: "troisanneaux"}
+      {src: "imgs/Bianca/Foto/Quinton/quinton1.JPG", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/quinton2.JPG", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/quinton3.jpg", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/quinton4.PNG", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/quinton5.jpeg", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/Foto_ritratto_3.jpg", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Quinton/quinton.jpg", alt: "Quinton", project: "quinton"},
+      {src: "imgs/Bianca/Foto/Foto_ritratto_1_PRINCIPALE_originale.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Foto_ritratto_4.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Foto_Modestas_Endriu_ka%20(52)_Original.JPG", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Foto_ritratto_2.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Foto_sfondo_in_palette.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Foto_sfondo_in_palette_2.png", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Possibile_foto_contatti.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Possibile_foto_contatti_2.jpg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/ritratto_home_1.jpeg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/ritratto_home_2.jpeg", alt: "Viola da gamba", project: "violadagamba"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Tra_noi.jpeg", alt: "Tra Noi", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Zuléia.jpeg", alt: "Ensemble Zuléia", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Orpheus.jpeg", alt: "Orpheus Ensemble Basel", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Duo_Cucini_Gonzàlez.jpeg", alt: "Duo Cucini-González", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/RYnsky.jpeg", alt: "Ensemble Rýnský", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Incogniti.jpeg", alt: "Gli Incogniti", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Mare_nostrum.jpeg", alt: "Mare Nostrum", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Primary_colors.jpeg", alt: "Primary Colors", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/Little_light_consort.jpeg", alt: "The Little Light Consort", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Collaborazioni/La_Chimera.jpeg", alt: "La Chimera", project: "collaborazioni"},
+      {src: "imgs/Bianca/Foto/Foto_sfondo_in_palette_3.jpg", alt: "Bianca Cucini", project: ""},
+      {src: "imgs/Bianca/Foto/Foto_sfondo_in_palette_4.png", alt: "Bianca Cucini", project: ""},
+      {src: "imgs/Bianca/Foto/viaggi.jpeg", alt: "Bianca Cucini", project: ""}
     ];
     var lbIndex = 0;
 
@@ -445,7 +614,7 @@
             var idx = galleryData.length;
             var origIdx = parseInt(item.dataset.origIdx);
             item.onclick = (function(n) { return function() { openLightbox(n); }; })(idx);
-            galleryData.push({src: img.src, alt: img.alt});
+            galleryData.push({src: item.dataset.full, alt: img.alt});
           }
         });
       });

@@ -159,11 +159,11 @@
 
       <h4 class="gallery-heading">Photo gallery</h4>
       <div class="gallery-grid" id="quintonGrid">
-        <div class="gallery-tile tile-a" onclick="openGallery('quinton', 0)"><img src="imgs/Bianca/Foto/quinton1.JPG" alt="Quinton (1)" loading="lazy"><span class="tile-index">01</span></div>
-        <div class="gallery-tile tile-b" onclick="openGallery('quinton', 1)"><img src="imgs/Bianca/Foto/quinton2.JPG" alt="Quinton (2)" loading="lazy"><span class="tile-index">02</span></div>
-        <div class="gallery-tile tile-c" onclick="openGallery('quinton', 2)"><img src="imgs/Bianca/Foto/quinton3.jpg" alt="Quinton (3)" loading="lazy"><span class="tile-index">03</span></div>
-        <div class="gallery-tile tile-d" onclick="openGallery('quinton', 3)"><img src="imgs/Bianca/Foto/quinton4.PNG" alt="Quinton (4)" loading="lazy"><span class="tile-index">04</span></div>
-        <div class="gallery-tile tile-e" onclick="openGallery('quinton', 4)"><img src="imgs/Bianca/Foto/quinton5.jpeg" alt="Quinton (5)" loading="lazy"><span class="tile-index">05</span></div>
+        <div class="gallery-tile tile-a" onclick="openGallery('quinton', 0)"><img src="imgs/Bianca/Foto/Quinton/quinton1.JPG" alt="Quinton (1)" loading="lazy"><span class="tile-index">01</span></div>
+        <div class="gallery-tile tile-b" onclick="openGallery('quinton', 1)"><img src="imgs/Bianca/Foto/Quinton/quinton2.JPG" alt="Quinton (2)" loading="lazy"><span class="tile-index">02</span></div>
+        <div class="gallery-tile tile-c" onclick="openGallery('quinton', 2)"><img src="imgs/Bianca/Foto/Quinton/quinton3.jpg" alt="Quinton (3)" loading="lazy"><span class="tile-index">03</span></div>
+        <div class="gallery-tile tile-d" onclick="openGallery('quinton', 3)"><img src="imgs/Bianca/Foto/Quinton/quinton4.PNG" alt="Quinton (4)" loading="lazy"><span class="tile-index">04</span></div>
+        <div class="gallery-tile tile-e" onclick="openGallery('quinton', 4)"><img src="imgs/Bianca/Foto/Quinton/quinton5.jpeg" alt="Quinton (5)" loading="lazy"><span class="tile-index">05</span></div>
         <div class="gallery-tile tile-f" onclick="openGallery('quinton', 5)"><img src="imgs/Bianca/Foto/quinton6.PNG" alt="Quinton (6)" loading="lazy"><span class="tile-index">06</span></div>
       </div>
       <h4 class="yt-label">Excerpt</h4>
@@ -186,7 +186,7 @@
   </div>
 
   <script>
-    var galleries = {quinton: [{src:'imgs/Bianca/Foto/quinton1.JPG',alt:'Quinton (1)'}, {src:'imgs/Bianca/Foto/quinton2.JPG',alt:'Quinton (2)'}, {src:'imgs/Bianca/Foto/quinton3.jpg',alt:'Quinton (3)'}, {src:'imgs/Bianca/Foto/quinton4.PNG',alt:'Quinton (4)'}, {src:'imgs/Bianca/Foto/quinton5.jpeg',alt:'Quinton (5)'},  {src:'imgs/Bianca/Foto/quinton6.PNG',alt:'Quinton (6)'}]};
+    var galleries = {quinton: [{src:'imgs/Bianca/Foto/Quinton/quinton1.JPG',alt:'Quinton (1)'}, {src:'imgs/Bianca/Foto/Quinton/quinton2.JPG',alt:'Quinton (2)'}, {src:'imgs/Bianca/Foto/Quinton/quinton3.jpg',alt:'Quinton (3)'}, {src:'imgs/Bianca/Foto/Quinton/quinton4.PNG',alt:'Quinton (4)'}, {src:'imgs/Bianca/Foto/Quinton/quinton5.jpeg',alt:'Quinton (5)'},  {src:'imgs/Bianca/Foto/quinton6.PNG',alt:'Quinton (6)'}]};
     var currentGallery=null, currentIndex=0;
     function openGallery(id,idx){ currentGallery=galleries[id]; currentIndex=idx; updateModalImage(); $('#galleryModal').modal('show'); }
     function updateModalImage(){ var item=currentGallery[currentIndex]; document.getElementById('galleryModalImg').src=item.src; document.getElementById('galleryModalImg').alt=item.alt; document.getElementById('galleryCounter').textContent=(currentIndex+1)+' / '+currentGallery.length; }
