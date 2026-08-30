@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-bianca-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-bianca-apple-touch.png">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- Bootstrap CSS -->
@@ -21,12 +21,11 @@
       /* Farbpalette der Website von Bianca */
       --ink: #303131;
       --paper: #F3EEE4;
-      --paper-soft: #FAF8F3;
+      --paper-soft: #EEEBE4;
       --stone: #D0C9BB;
       --accent: #294A5B;
       --accent-light: #3d6377;
       --accent-dark: #1c333f;
-      --cognac: #995C3F;
       --slate: #737978;
       --rule: var(--stone);
       --photo-dark: #05090C; /* aus dem Hintergrund von Foto_ritratto_1_PRINCIPALE entnommen */
@@ -52,13 +51,16 @@
     }
 
     h3 {
-      margin: 0 0 0.6em;
+      margin: 0;
       font-size: 1.6em;
       color: var(--accent);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .container p, .container ul {
-      text-align: justify;
+      text-align: left;
     }
 
     .parallax {
@@ -92,9 +94,6 @@
       .social-icons-mobile i {
         font-size: 1.2em !important;
       }
-      .text-center-mobile {
-        text-align: center;
-      }
     }
 
     /* ── Ensemble-Abschnitte ── */
@@ -114,47 +113,32 @@
       margin-top: 1.2rem;
     }
     .ensemble-row.reverse { flex-direction: row-reverse; }
-    /* Rahmen wie auf home-it.html: ein schmaler, "aufgedruckter" Umriss über dem
-       Foto, in den Farben der Palette, für Abwechslung von Abschnitt zu Abschnitt.
-       Die Fotos sind niedrig aufgelöst: klein gehalten und im Originalformat
-       gezeigt (kein erzwungener Zuschnitt, Höhe automatisch). */
-    .frame-amber  { --frame-color: var(--accent); }
-    .frame-navy   { --frame-color: var(--ink); }
-    .frame-teal   { --frame-color: var(--slate); }
-    .frame-cognac { --frame-color: var(--cognac); }
-    .ensemble-photo-wrap { flex: 0 0 auto; width: clamp(110px, 20vw, 170px); }
+    .ensemble-photo-wrap { flex: 0 0 auto; width: clamp(158px, 29vw, 245px); }
     .ensemble-photo {
       display: block;
       width: 100%;
       height: auto;
-      outline: 1.5px solid var(--frame-color);
-      outline-offset: -8px;
     }
-    .ensemble-desc { flex: 1 1 auto; min-width: 0; margin: 0; text-align: justify; }
-    /* Textfarbe für jede Beschreibung, von Sara für jedes Ensemble festgelegt */
-    #tranoi .ensemble-desc            { color: #246281; }
-    #zuleia .ensemble-desc            { color: #751E02; }
-    #orpheus .ensemble-desc           { color: #1D2C49; }
-    #duocucinigonzalez .ensemble-desc { color: #536E38; }
-    #rynsky .ensemble-desc            { color: #8F2704; }
-    #incogniti .ensemble-desc         { color: #2D0807; }
-    #marenostrum .ensemble-desc       { color: #586C7A; }
-    #primarycolors .ensemble-desc     { color: #0B100E; }
-    #littlelight .ensemble-desc       { color: #6980A9; }
-    #chimera .ensemble-desc           { color: #B07D13; }
+    .ensemble-desc { flex: 1 1 auto; min-width: 0; margin: 0; text-align: left; }
+    .ensemble-row.reverse .ensemble-desc { text-align: right; }
+    /* Textfarbe der Beschreibung an den Sektionshintergrund gebunden (nicht mehr an das Foto) */
+    .ensemble-section .ensemble-desc     { color: var(--accent); }
+    .ensemble-section.alt .ensemble-desc { color: var(--accent-light); }
     @media (max-width: 700px) {
-      .ensemble-row, .ensemble-row.reverse { flex-direction: column; align-items: center; text-align: center; }
-      .ensemble-photo-wrap { width: 150px; }
-      .ensemble-desc { width: 100%; text-align: left; }
+      .ensemble-row, .ensemble-row.reverse { flex-direction: column; align-items: flex-start; text-align: left; }
+      .ensemble-photo-wrap { width: 100%; }
+      .ensemble-desc, .ensemble-row.reverse .ensemble-desc { width: 100%; text-align: left; }
     }
-    .ensemble-country {
+    .ensemble-card .ensemble-country {
       font-family: 'Work Sans', sans-serif;
       font-size: 0.8em;
       letter-spacing: 0.22em;
       text-transform: uppercase;
+      text-align: center;
       color: var(--slate);
-      opacity: 0.75;
+      opacity: 0.6;
       margin: 0 0 0.3em;
+      text-shadow: 0 2px 4px rgba(48,49,49,0.25);
     }
     .ensemble-members {
       list-style: none;
@@ -317,8 +301,8 @@
     <style>
     .navbar { background-color: var(--photo-dark); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background-color 0.25s ease; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: #fff !important; transition: color 0.25s ease; }
-    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; transition: color 0.25s ease; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Work Sans', sans-serif; font-weight: 600; letter-spacing:0.05em; text-transform:uppercase; color: #fff !important; transition: color 0.25s ease; }
+    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.25s ease; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
     /* Über dem hellen Seitenabschnitt wird auch die Navbar hell, synchron mit
        der seitlichen Punktnavigation (derselbe IntersectionObserver auf dem
@@ -328,11 +312,6 @@
     .navbar.light .nav-link { color: rgba(48,49,49,0.65) !important; }
     .navbar.light .nav-link:hover, .navbar.light .nav-link.active { color: var(--accent) !important; }
     .navbar.light .navbar-toggler-icon { filter: invert(1); }
-    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(48,49,49,0.12); padding: 0.3rem 0; min-width: 170px; }
-    .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
-    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--paper-soft); color: var(--accent); }
-    .dropdown-item.disabled { color: var(--stone); pointer-events: none; }
-    .dropdown-divider { border-color: var(--rule); margin: 0.2rem 0; }
   </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
     <a class="navbar-brand d-block d-sm-none" href="index.html">
@@ -345,10 +324,10 @@
       <a class="navbar-brand justify-content-center" href="index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
         <li class="nav-item"><a class="nav-link " href="home-de.html">Bianca Cucini</a></li>
-        <li class="nav-item"><a class="nav-link " href="quinton-de.html">Quinton</a></li>
-        <li class="nav-item"><a class="nav-link active" href="collaborazioni-de.html">Zusammenarbeiten</a></li>
-        <li class="nav-item"><a class="nav-link " href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link " href="agenda-de.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link active" href="collaborazioni-de.html">Zusammenarbeiten</a></li>
+        <li class="nav-item"><a class="nav-link " href="quinton-de.html">Quinton</a></li>
+        <li class="nav-item"><a class="nav-link " href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link " href="contatti-de.html">Kontakt</a></li>
       </ul>
     </div>
@@ -376,8 +355,8 @@
   <section class="container-fluid ensemble-section" id="tranoi">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Schweiz</p>
         <h3>Tra Noi</h3>
+        <p class="ensemble-country">Schweiz</p>
         <ul class="ensemble-members">
           <li><span class="member-name">Daria Spiridonova</span> <span class="member-role">— Violine</span></li>
           <li><span class="member-name">Silvia Berchtold</span> <span class="member-role">— Blockflöten</span></li>
@@ -386,11 +365,11 @@
         </ul>
         <div class="ensemble-row">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Tra_noi.jpeg" alt="Tra Noi" class="ensemble-photo frame-amber" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Tra_noi.jpeg" alt="Tra Noi" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das Alte-Musik-Ensemble Tra Noi zeichnet sich vor allem durch seine lebendige Kommunikation aus – untereinander wie mit dem Publikum: Das „Wir" im Namen ist inklusiv und schliesst alle Anwesenden ein. Erst Anfang 2023 gegründet, hat es bereits den Konzerthaus-Preis Wien beim HIF-Biber-Wettbewerb (2023), den Publikumspreis beim Biagio-Marini-Wettbewerb (2023) und beim Händel-Wettbewerb Göttingen (2024), den ersten Preis beim Concours International de musique ancienne du Val de Loire (2024), den dritten Preis als Duo beim Internationalen Van-Wassenaer-Wettbewerb (2024), den ersten Preis und den Publikumspreis beim Orlando-di-Lasso-Wettbewerb (2025) sowie den EUBO-Preis als „vielversprechendstes Ensemble" beim York Young Artist Competition gewonnen. Auftritte führten es unter anderem zum Kammermusikfestival Turin, zum Festival Resonanzen im Wiener Konzerthaus, zur Telemann-Gesellschaft Magdeburg, zu den Innsbrucker Festwochen, zum FEL!X-Festival der Kölner Philharmonie und zur Philharmonie Kaunas. Besprochen auf Scherzo.ES.</p>
         </div>
-        <p class="ensemble-links"><a href="https://www.instagram.com/tranoi_ensemble/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://youtu.be/M715ikNu3Ew?is=jVEYbxlWHvRJSP79" class="project-link" target="_blank" rel="noopener noreferrer">Video: York Festival →</a></p>
+        <p class="ensemble-links"><a href="https://www.instagram.com/tranoi_ensemble/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@TRANOI_baroque_ensemble" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://youtu.be/M715ikNu3Ew?is=jVEYbxlWHvRJSP79" class="project-link" target="_blank" rel="noopener noreferrer">Video: York Festival →</a></p>
       </div>
     </div>
   </section>
@@ -398,8 +377,8 @@
   <section class="container-fluid ensemble-section alt" id="zuleia">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Schweiz</p>
         <h3>Ensemble Zuléia</h3>
+        <p class="ensemble-country">Schweiz</p>
         <ul class="ensemble-members">
           <li><span class="member-name">Léna Ruisz</span> <span class="member-role">— Violine</span></li>
           <li><span class="member-name">Zuguang Xiao</span> <span class="member-role">— Cembalo</span></li>
@@ -407,7 +386,7 @@
         </ul>
         <div class="ensemble-row reverse">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Zuléia.jpeg" alt="Ensemble Zuléia" class="ensemble-photo frame-navy" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Zuléia.jpeg" alt="Ensemble Zuléia" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das Ensemble Zuléia entstand 2022, als sich seine Mitglieder während ihres Studiums an der renommierten Schola Cantorum Basiliensis kennenlernten, einer der führenden Institutionen für Alte Musik, unter der Anleitung von Musikern wie Paolo Pandolfo, Leila Schayegh, Amandine Beyer, Jörg-Andreas Bötticher, Thomas Leininger und Edoardo Torbianelli. Die aus China, Ungarn und Italien stammenden Mitglieder haben in Basel ein breites Repertoire erarbeitet. 2025 gewann das Ensemble den renommierten Internationalen Telemann-Wettbewerb in Magdeburg.</p>
         </div>
@@ -419,8 +398,8 @@
   <section class="container-fluid ensemble-section" id="orpheus">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Schweiz</p>
         <h3>Orpheus Ensemble Basel</h3>
+        <p class="ensemble-country">Schweiz</p>
         <ul class="ensemble-members">
           <li><span class="member-name">Emilė Ribokaitė</span> <span class="member-role">— Sopran & Perkussion</span></li>
           <li><span class="member-name">Lena Tschinderle</span> <span class="member-role">— Sopran & Blockflöte</span></li>
@@ -430,11 +409,11 @@
         </ul>
         <div class="ensemble-row">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Orpheus.jpeg" alt="Orpheus Ensemble Basel" class="ensemble-photo frame-teal" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Orpheus.jpeg" alt="Orpheus Ensemble Basel" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das Orpheus Ensemble Basel wurde 2021 in Basel gegründet und gewann im darauffolgenden Jahr den vom Musikfestspiele Potsdam Sanssouci ausgeschriebenen Wettbewerb für junge Alte-Musik-Interpreten.</p>
         </div>
-        <p class="ensemble-links"><a href="https://www.instagram.com/orpheus.ensemble.basel/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.giornaledellamusica.it/podcast/early-music-stories-3-e-4" class="project-link" target="_blank" rel="noopener noreferrer">Podcast: Early Music Stories →</a></p>
+        <p class="ensemble-links"><a href="https://www.instagram.com/orpheus.ensemble.basel/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@OrpheusEnsembleBasel" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://www.giornaledellamusica.it/podcast/early-music-stories-3-e-4" class="project-link" target="_blank" rel="noopener noreferrer">Podcast: Early Music Stories →</a></p>
       </div>
     </div>
   </section>
@@ -442,15 +421,15 @@
   <section class="container-fluid ensemble-section alt" id="duocucinigonzalez">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Schweiz</p>
         <h3>Duo Cucini-González</h3>
+        <p class="ensemble-country">Schweiz</p>
         <ul class="ensemble-members">
           <li><span class="member-name">Bianca Cucini</span> <span class="member-role">— Viola da gamba & Quinton</span></li>
           <li><span class="member-name">Marinò González García</span> <span class="member-role">— Viola da gamba</span></li>
         </ul>
         <div class="ensemble-row reverse">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Duo_Cucini_Gonzàlez.jpeg" alt="Duo Cucini-González" class="ensemble-photo frame-cognac" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Duo_Cucini_Gonzàlez.jpeg" alt="Duo Cucini-González" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das Duo Cucini-González konzertiert seit 2025 gemeinsam in der Schweiz (Basel), den Niederlanden (Den Haag), England (York Early Music Festival) und Italien (Florenz). Ausgebildet unter der Anleitung von Paolo Pandolfo, Mieneke van der Velden und François Joubert-Caillet, zählen die beiden zu den bemerkenswerten jungen Gambisten der internationalen Alte-Musik-Szene.</p>
         </div>
@@ -462,8 +441,8 @@
   <section class="container-fluid ensemble-section" id="rynsky">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Tschechische Republik</p>
         <h3>Ensemble Rýnský</h3>
+        <p class="ensemble-country">Tschechische Republik</p>
         <ul class="ensemble-members">
           <li><span class="member-name">Vojtěch Jakl</span> <span class="member-role">— Barockvioline</span></li>
           <li><span class="member-name">Elias Conrad</span> <span class="member-role">— Theorbe, Barockgitarre</span></li>
@@ -472,7 +451,7 @@
         </ul>
         <div class="ensemble-row">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/RYnsky.jpeg" alt="Ensemble Rýnský" class="ensemble-photo frame-amber" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/RYnsky.jpeg" alt="Ensemble Rýnský" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das preisgekrönte Ensemble Rýnský vereint herausragende Musikerinnen und Musiker einer jungen, der Alten Musik verpflichteten Generation. Sein Schwerpunkt liegt auf der Wiederentdeckung des Repertoires des Stylus Phantasticus aus tschechischen, deutschen und österreichischen Archiven. Während des gemeinsamen Studiums an der Schola Cantorum Basiliensis in Basel gegründet und für Virtuosität, Musikalität und Kreativität gerühmt, tritt das Ensemble regelmässig bei renommierten Festivals und an bedeutenden Spielstätten auf. Ausgezeichnet wurde es mit dem International Manhattan Music Award (USA, 2023), dem Publikumspreis des Biagio-Marini-Wettbewerbs Neuburg (DE, 2021) und dem DV Young Sounds Award (IT, 2022); es wird zudem vom europäischen Programm S-Eeemerging gefördert. Die Debüt-CD, gewidmet der Weltersteinspielung aller zwölf Violinsonaten von Ignazio Albertini, erscheint beim Label DaVinci Records.</p>
         </div>
@@ -485,13 +464,14 @@
     <div class="container">
       <div class="ensemble-card">
         <h3>Gli Incogniti</h3>
+        <p class="ensemble-country">Frankreich</p>
         <div class="ensemble-row reverse">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Incogniti.jpeg" alt="Gli Incogniti" class="ensemble-photo frame-navy" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Incogniti.jpeg" alt="Gli Incogniti" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Gli Incogniti wurden 2006 von einer Gruppe von Freunden gegründet, die von der Geigerin Amandine Beyer zusammengeführt wurden; der Name geht auf die Accademia degli Incogniti zurück. In den vergangenen zwanzig Jahren ist der harte Kern der Musiker weitgehend unverändert geblieben, während nach und nach talentierte neue Mitglieder dazugekommen sind und frische Ideen sowie neue Energie eingebracht haben. Das Ensemble ist regelmässig zu Gast an den renommiertesten Spielstätten und Festivals der Welt. Bianca Cucini hat mit Gli Incogniti als Solo-Gambistin an der Seite von Amandine Beyer selbst konzertiert, in der Schweiz und in Deutschland, unter anderem in der Kölner Philharmonie.</p>
         </div>
-        <p class="ensemble-links"><a href="https://www.instagram.com/gli.incogniti/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://gliincogniti.com/en/home.html" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a>&emsp;<a href="https://gliincogniti.com/en/plus.html" class="project-link" target="_blank" rel="noopener noreferrer">Mitwirkende →</a></p>
+        <p class="ensemble-links"><a href="https://www.instagram.com/gli.incogniti/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@Gliincogniti-AmandineBeyer" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://gliincogniti.com/en/home.html" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a>&emsp;<a href="https://gliincogniti.com/en/plus.html" class="project-link" target="_blank" rel="noopener noreferrer">Mitwirkende →</a></p>
       </div>
     </div>
   </section>
@@ -500,14 +480,15 @@
     <div class="container">
       <div class="ensemble-card">
         <h3>Mare Nostrum</h3>
+        <p class="ensemble-country">Italien</p>
         <div class="ensemble-row">
           <div class="ensemble-photo-wrap">
             <!-- Hinweis: vorläufiges Foto, offizielles Shooting steht noch aus -->
-            <img src="imgs/Bianca/Foto/Collaborazioni/Mare_nostrum.jpeg" alt="Mare Nostrum" class="ensemble-photo frame-teal" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Mare_nostrum.jpeg" alt="Mare Nostrum" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">2005 in Rom von Andrea De Carlo gegründet, hat sich das Ensemble Mare Nostrum als eine der eigenständigsten Stimmen der europäischen Alte-Musik-Szene etabliert. Sein interpretatorischer Ansatz beruht auf einer tiefgehenden Erforschung der Beziehung zwischen Musik, Sprache, Geste und Affekt und gibt dem barocken Repertoire seine volle theatralische, körperliche und emotionale Dimension zurück. Seit 2012 widmet sich das Ensemble insbesondere dem römischen Repertoire des 17. Jahrhunderts mit <em>The Stradella Project</em>, einer Aufnahmereihe zu den Werken Alessandro Stradellas: Die jüngste Einspielung, <em>Un angelo del Paradiso</em> (2024), erhielt eine Nominierung bei den Gramophone Classical Music Awards 2025. Bianca Cucini arbeitet mit dem Ensemble Mare Nostrum zusammen.</p>
         </div>
-        <p class="ensemble-links"><a href="https://www.instagram.com/ens_marenostrum/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.ensemblemarenostrum.com/bio-en" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a></p>
+        <p class="ensemble-links"><a href="https://www.instagram.com/ens_marenostrum/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/channel/UC5G86wUwJIkXj5txvwKhX0g" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://www.ensemblemarenostrum.com/bio-en" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a></p>
       </div>
     </div>
   </section>
@@ -515,12 +496,12 @@
   <section class="container-fluid ensemble-section alt" id="primarycolors">
     <div class="container">
       <div class="ensemble-card">
-        <p class="ensemble-country">Schweiz</p>
         <h3>Primary Colors</h3>
+        <p class="ensemble-country">Schweiz</p>
         <!-- Mitglieder, Werdegang, Links zu Rezensionen/Video: noch hinzuzufügen -->
         <div class="ensemble-row reverse">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Primary_colors.jpeg" alt="Primary Colors" class="ensemble-photo frame-cognac" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Primary_colors.jpeg" alt="Primary Colors" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Mit einer neuen Generation von Künstlerinnen und Künstlern, die sich an der historischen Aufführungspraxis orientieren, konzentriert sich Primary Colors auf die weniger bekannten ästhetischen Praktiken des 17. und 18. Jahrhunderts. Das Ensemble, das aus einer Kombination von Blas-, Zupf- und Streichinstrumenten besteht, widmet sich dem deutschen und italienischen Repertoire dieser Epoche und präsentiert Werke in Instrumentalkombinationen, die für ihre Komponisten vertraut, heute aber wenig bekannt sind. Primary Colors wurde 2014 an der Schola Cantorum Basiliensis gegründet und tritt seither regelmässig in der Region Basel auf. Das Ensemble hat kürzlich eine CD mit virtuoser Fagottmusik von Georg Philipp Telemann aufgenommen, die 2026 erscheinen wird.</p>
         </div>
@@ -533,10 +514,11 @@
     <div class="container">
       <div class="ensemble-card">
         <h3>The Little Light Consort</h3>
+        <p class="ensemble-country">Schweiz</p>
         <!-- Mitglieder: noch hinzuzufügen -->
         <div class="ensemble-row">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/Little_light_consort.jpeg" alt="The Little Light Consort" class="ensemble-photo frame-amber" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/Little_light_consort.jpeg" alt="The Little Light Consort" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das Little Light Consort wurde 2011 vom Gambisten Soma Salat-Zakariás gegründet, mit dem Ziel, das historische und zeitgenössische Repertoire für Gamben zu erschliessen und einem breiteren Publikum zugänglich zu machen. Das gemeinsame musikalische Verständnis, das die Musiker durch ihr Studium an der Schola Cantorum Basiliensis erworben haben, bildet eine solide Grundlage für ihre Interpretationen. Um die Aufführungspraxis des Consorts zu vervollkommnen, initiierte Salat-Zakariás gemeinsam mit der Chest-of-Viols-Vereinigung den Bau eines sogenannten „Chest of Viols": Die sechs im März 2024 fertiggestellten Instrumente ermöglichen eine intensive Auseinandersetzung mit der Komposition und eine stimmige Vermittlung an das Publikum.</p>
         </div>
@@ -549,14 +531,15 @@
     <div class="container">
       <div class="ensemble-card">
         <h3>La Chimera</h3>
+        <p class="ensemble-country">Italien</p>
         <!-- Mitglieder: noch hinzuzufügen -->
         <div class="ensemble-row reverse">
           <div class="ensemble-photo-wrap">
-            <img src="imgs/Bianca/Foto/Collaborazioni/La_Chimera.jpeg" alt="La Chimera" class="ensemble-photo frame-navy" loading="lazy">
+            <img src="imgs/Bianca/Foto/Collaborazioni/La_Chimera.jpeg" alt="La Chimera" class="ensemble-photo" loading="lazy">
           </div>
           <p class="ensemble-desc">Das 2001 von Sabina Colonna-Preti als Gambenconsort gegründete Ensemble erhielt durch die Begegnung mit Eduardo Egüez eine andere, bereicherte Form: Unter Beibehaltung der ursprünglichen Klangcharakteristik der Gamben wurde La Chimera zu einem vielseitigen Ensemble aus international renommierten Künstlerinnen und Künstlern. Die Tätigkeit der Gruppe konzentriert sich auf die Entwicklung origineller Projekte, in denen die unterschiedlichen Kunstformen und Kulturen der Mitglieder zusammenfliessen — sie stammen aus Argentinien, Venezuela, Frankreich, Senegal, Italien, Schweden, Kuba, Norwegen und weiteren Ländern.</p>
         </div>
-        <p class="ensemble-links"><a href="https://www.instagram.com/ensemblelachimera/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.ensemble-la-chimera.com/" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a></p>
+        <p class="ensemble-links"><a href="https://www.instagram.com/ensemblelachimera/" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/channel/UCXRFS4s8d3ck2_YE_0LGv9Q" class="project-link-icon" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://www.ensemble-la-chimera.com/" class="project-link" target="_blank" rel="noopener noreferrer">Offizielle Website →</a></p>
       </div>
     </div>
   </section>

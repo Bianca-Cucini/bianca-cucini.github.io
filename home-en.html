@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-bianca-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-bianca-apple-touch.png">
     <!-- Google Fonts: Josefin Sans for headings, Work Sans for body -->
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
@@ -22,10 +22,9 @@
         /* Calibrated on the moodboard: warm ivory/stone ↔ architectural blue */
         --ink: #303131;          /* carbone — main text */
         --paper: #F3EEE4;        /* warm ivory — dominant background */
-        --paper-soft: #FAF8F3;   /* warm white — secondary surfaces */
+        --paper-soft: #EEEBE4;   /* warm light grey — secondary surfaces */
         --stone: #D0C9BB;        /* stone — borders, dividers, secondary fills */
         --accent: #294A5B;       /* deep blue — identity colour, selective use */
-        --accent-light: #3d6377; /* lighter blue variant, for hover */
         --accent-dark: #1c333f;  /* darker blue variant, for hover */
         --cognac: #995C3F;       /* very rare accent — wood, warm matter */
         --slate: #737978;        /* metadata, categories, secondary info */
@@ -54,18 +53,13 @@
 
       p {
         padding-left: 2em;
-        text-align: justify;
+        text-align: left;
       }
 
       .container-fluid {
         background-color: var(--paper);
         color: var(--ink);
         padding: 50px 0px;
-      }
-
-      .img-right {
-        max-width: 100%;
-        height: auto;
       }
 
       .row {
@@ -143,10 +137,8 @@
 
       /* Frame colours — three distinct palette colours, like the
          index buttons, for more contrast instead of a single flat tint */
-      .frame-amber  { --frame-color: var(--accent); }
-      .frame-navy   { --frame-color: var(--ink); }
-      .frame-teal   { --frame-color: var(--slate); }
-      .frame-cognac { --frame-color: var(--cognac); }
+      .frame-accent  { --frame-color: var(--accent); }
+      .frame-slate   { --frame-color: var(--slate); }
 
       /* Bordered box for text: holds label + paragraph, full height so
          it lines up exactly with the photo alongside it */
@@ -159,7 +151,7 @@
         flex-direction: column;
         justify-content: center;
       }
-      .box-frame p:not(.box-kicker) { padding-left: 0; margin-bottom: 0; text-align: justify; }
+      .box-frame p:not(.box-kicker) { padding-left: 0; margin-bottom: 0; text-align: left; }
       .box-frame .box-kicker { padding-left: 0; }
       .box-frame .box-kicker + .box-kicker,
       .box-frame p + .box-kicker,
@@ -184,7 +176,7 @@
       /* Education — flowing layout: full-width text, then a parallax photo
          band below, stacked as it already was on mobile (no side-by-side
          column) */
-      #bio .band-inner { --frame-color: var(--cognac); }
+      #bio .band-inner { --frame-color: var(--accent); }
       .formazione-parallax {
         position: relative;
         width: 100%;
@@ -214,7 +206,7 @@
       /* Concert activity — full-width band, justified, spread-out text */
       .band-section { background-color: var(--paper-soft); color: var(--ink); padding: clamp(2.6rem, 6vw, 4rem) 0; }
       .band-inner {
-        --frame-color: var(--ink);
+        --frame-color: var(--slate);
         max-width: 980px;
         margin: 0 auto;
         border: 1.5px solid var(--frame-color);
@@ -222,7 +214,7 @@
         box-sizing: border-box;
       }
       .band-inner .box-kicker { text-align: left; padding-left: 0; }
-      .band-inner p:not(.box-kicker) { text-align: justify; padding-left: 0; margin-bottom: 0; }
+      .band-inner p:not(.box-kicker) { text-align: left; padding-left: 0; margin-bottom: 0; }
 
       /* Awards & collaborations — single row: photo | text | photo, aligned */
       #premi-collab .row { align-items: stretch; }
@@ -316,16 +308,11 @@
       <style>
     .navbar { background-color: var(--paper); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: none; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: var(--ink) !important; }
-    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; transition: color 0.2s; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Work Sans', sans-serif; font-weight: 600; letter-spacing:0.05em; text-transform:uppercase; color: var(--ink) !important; }
+    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.2s; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent) !important; }
     .navbar-toggler { border-color: var(--rule); }
     .navbar-toggler-icon { filter: invert(1); }
-    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(48,49,49,0.12); padding: 0.3rem 0; min-width: 170px; }
-    .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
-    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--paper-soft); color: var(--accent); }
-    .dropdown-item.disabled { color: var(--stone); pointer-events: none; }
-    .dropdown-divider { border-color: var(--rule); margin: 0.2rem 0; }
   </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
     <a class="navbar-brand d-block d-sm-none" href="index.html">
@@ -338,10 +325,10 @@
       <a class="navbar-brand justify-content-center" href="index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
         <li class="nav-item"><a class="nav-link active" href="home-en.html">Bianca Cucini</a></li>
-        <li class="nav-item"><a class="nav-link " href="quinton-en.html">Quinton</a></li>
-        <li class="nav-item"><a class="nav-link " href="collaborazioni-en.html">Partnerships</a></li>
-        <li class="nav-item"><a class="nav-link " href="media-en.html">Media</a></li>
         <li class="nav-item"><a class="nav-link " href="agenda-en.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="collaborazioni-en.html">Partnerships</a></li>
+        <li class="nav-item"><a class="nav-link " href="quinton-en.html">Quinton</a></li>
+        <li class="nav-item"><a class="nav-link " href="media-en.html">Media</a></li>
         <li class="nav-item"><a class="nav-link " href="contatti-en.html">Contact</a></li>
       </ul>
     </div>
@@ -384,11 +371,11 @@
       <div class="row">
         <div class="col-md-3 p-0">
           <div class="box-photo-wrap">
-            <img src="imgs/Bianca/Foto/Foto_sfondo_in_palette_2.png" alt="Bianca Cucini in concert" class="box-photo frame-teal" loading="lazy">
+            <img src="imgs/Bianca/Foto/Foto_sfondo_in_palette_2.png" alt="Bianca Cucini in concert" class="box-photo frame-slate" loading="lazy">
           </div>
         </div>
         <div class="col-md-6 col-left">
-          <div class="box-frame frame-navy">
+          <div class="box-frame frame-slate">
             <p class="box-kicker">Awards &amp; competitions</p>
             <ul class="awards-timeline">
               <li class="awards-year-group">
@@ -428,7 +415,7 @@
         </div>
         <div class="col-md-3 p-0">
           <div class="box-photo-wrap">
-            <img src="imgs/Bianca/Foto/Foto_ritratto_4.jpg" alt="Bianca Cucini, portrait" class="box-photo frame-amber" loading="lazy">
+            <img src="imgs/Bianca/Foto/Foto_ritratto_4.jpg" alt="Bianca Cucini, portrait" class="box-photo frame-accent" loading="lazy">
           </div>
         </div>
       </div>

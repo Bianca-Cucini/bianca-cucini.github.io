@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-bianca-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-bianca-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-bianca-apple-touch.png">
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -18,10 +18,9 @@
       /* Same palette as the home page */
       --ink: #303131;
       --paper: #F3EEE4;
-      --paper-soft: #FAF8F3;
+      --paper-soft: #EEEBE4;
       --stone: #D0C9BB;
       --accent: #294A5B;
-      --accent-light: #3d6377;
       --accent-dark: #1c333f;
       --cognac: #995C3F;
       --slate: #737978;
@@ -121,7 +120,7 @@
       padding-top: 0;
     }
     .date-badge {
-      --frame-color: var(--accent);
+      --frame-color: var(--ink);
       width: 100px;
       min-height: 100px;
       box-sizing: border-box;
@@ -133,10 +132,7 @@
       text-align: center;
       padding: 0.5rem 0.3rem;
     }
-    .frame-amber  { --frame-color: var(--accent); }
-    .frame-navy   { --frame-color: var(--ink); }
-    .frame-teal   { --frame-color: var(--slate); }
-    .frame-cognac { --frame-color: var(--cognac); }
+    .frame-accent  { --frame-color: var(--accent); }
     /* ── Upcoming map + photo banner ──
        Die Karte füllt den restlichen Platz (flex: 1); das Foto behält
        seine natürlichen Proportionen und ist immer so hoch wie die Karte
@@ -267,13 +263,6 @@
       box-shadow: 0 6px 20px rgba(48,49,49,0.12);
       margin-bottom: 3rem;
     }
-    .archive-note {
-      font-size: 0.82em;
-      color: var(--slate);
-      margin-top: 0.5rem;
-      font-style: italic;
-    }
-
     /* ── Archive timeline (mirrored) ── */
     .timeline-archive { position: relative; margin-top: 4rem; padding-right: 4rem; }
     .archive-item {
@@ -377,16 +366,11 @@
     <style>
     .navbar { background-color: var(--paper); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: none; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: var(--ink) !important; }
-    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; transition: color 0.2s; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Work Sans', sans-serif; font-weight: 600; letter-spacing:0.05em; text-transform:uppercase; color: var(--ink) !important; }
+    .navbar .nav-link { color: rgba(48,49,49,0.65) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.2s; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--accent) !important; }
     .navbar-toggler { border-color: var(--rule); }
     .navbar-toggler-icon { filter: invert(1); }
-    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(48,49,49,0.12); padding: 0.3rem 0; min-width: 170px; }
-    .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
-    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--paper-soft); color: var(--accent); }
-    .dropdown-item.disabled { color: var(--stone); pointer-events: none; }
-    .dropdown-divider { border-color: var(--rule); margin: 0.2rem 0; }
   </style>
   <nav class="navbar navbar-expand-sm navbar-dark fixed-top" id="mainNavbar">
     <a class="navbar-brand d-block d-sm-none" href="index.html">
@@ -399,10 +383,10 @@
       <a class="navbar-brand justify-content-center" href="index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
         <li class="nav-item"><a class="nav-link " href="home-de.html">Bianca Cucini</a></li>
-        <li class="nav-item"><a class="nav-link " href="quinton-de.html">Quinton</a></li>
-        <li class="nav-item"><a class="nav-link " href="collaborazioni-de.html">Zusammenarbeiten</a></li>
-        <li class="nav-item"><a class="nav-link " href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link active" href="agenda-de.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link " href="collaborazioni-de.html">Zusammenarbeiten</a></li>
+        <li class="nav-item"><a class="nav-link " href="quinton-de.html">Quinton</a></li>
+        <li class="nav-item"><a class="nav-link " href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link " href="contatti-de.html">Kontakt</a></li>
       </ul>
     </div>
@@ -427,7 +411,7 @@
         <div id="map-upcoming" class="upcoming-map"></div>
       </div>
       <div class="upcoming-photo-wrap">
-        <img src="imgs/Bianca/Foto/viaggi.jpeg" alt="Bianca Cucini auf Reisen" class="upcoming-photo frame-cognac" loading="lazy">
+        <img src="imgs/Bianca/Foto/viaggi.jpeg" alt="Bianca Cucini auf Reisen" class="upcoming-photo frame-accent" loading="lazy">
       </div>
     </div>
 
@@ -784,11 +768,6 @@
     return hh + ':' + mm + ' Uhr';
   }
 
-  var FRAME_CLASSES = ['frame-amber', 'frame-navy', 'frame-teal', 'frame-cognac'];
-  function randomFrameClass() {
-    return FRAME_CLASSES[Math.floor(Math.random() * FRAME_CLASSES.length)];
-  }
-
   function isUpcoming(c) {
     var today = new Date(); today.setHours(0, 0, 0, 0);
     var end = c.date_end && c.date_end.match(/^\d{4}-\d{2}-\d{2}$/)
@@ -852,7 +831,7 @@
         tl.innerHTML +=
           '<div class="concert-item" id="' + concertId(c) + '">' +
           '  <div class="concert-date">' +
-          '    <div class="date-badge ' + randomFrameClass() + '">' +
+          '    <div class="date-badge">' +
           '      <span class="cd-month">' + d.monthFull + '</span>' +
           '      <span class="cd-day">' + d.day + '</span>' +
           badgeEnd +
@@ -959,7 +938,7 @@
         rows +=
           '<div class="archive-item" id="' + concertId(c) + '">' +
           '  <div class="archive-date">' +
-          '    <div class="date-badge ' + randomFrameClass() + '">' +
+          '    <div class="date-badge">' +
           '      <span class="cd-month">' + d.monthFull + '</span>' +
           '      <span class="cd-day">' + d.day + '</span>' +
           badgeEnd +

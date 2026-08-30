@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-bianca-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-bianca-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon-bianca-apple-touch.png">
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <style>
@@ -32,8 +32,8 @@
     /* ── Navbar ── */
     .navbar { background-color: var(--photo-dark); font-family: 'Work Sans', sans-serif; font-size: 0.92rem; letter-spacing:0.02em; box-shadow: 0 1px 0 rgba(0,0,0,0.05); transition: background-color 0.25s ease; }
     .navbar.navbar-scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
-    .navbar-brand { font-size: 0.92rem; font-family: 'Josefin Sans', sans-serif; letter-spacing:0.12em; text-transform:uppercase; color: #fff !important; transition: color 0.25s ease; }
-    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; transition: color 0.25s ease; }
+    .navbar-brand { font-size: 0.92rem; font-family: 'Work Sans', sans-serif; font-weight: 600; letter-spacing:0.05em; text-transform:uppercase; color: #fff !important; transition: color 0.25s ease; }
+    .navbar .nav-link { color: rgba(255,255,255,0.78) !important; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.25s ease; }
     .navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
     /* Über dem hellen Seitenhintergrund wird die Navbar wieder hell, synchron
        mit dem seitlichen Dot-Nav (derselbe IntersectionObserver auf dem Hero-Foto) */
@@ -42,9 +42,6 @@
     .navbar.light .nav-link { color: rgba(23,25,27,0.65) !important; }
     .navbar.light .nav-link:hover, .navbar.light .nav-link.active { color: var(--azure-deep) !important; }
     .navbar.light .navbar-toggler-icon { filter: invert(1); }
-    .dropdown-menu { background-color: var(--paper); border: 1px solid var(--rule); border-radius: 0; box-shadow: 0 8px 24px rgba(23,25,27,0.12); padding: 0.3rem 0; min-width: 170px; }
-    .dropdown-item { font-family: 'Work Sans', sans-serif; color: var(--ink); font-size: 0.92em; padding: 0.5rem 1.2rem; }
-    .dropdown-item:hover, .dropdown-item:focus { background-color: var(--mist); color: var(--azure-deep); }
 
     /* ── Hero ── */
     .media-hero {
@@ -98,8 +95,6 @@
     }
 
     /* ── Abschnittsüberschriften ── */
-    .section-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.78em; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--azure); margin-bottom: 0.3rem; }
     .section-title { font-size: 1.6em; font-weight: 400; color: var(--azure-deep);
       margin-bottom: 1.8rem; padding-bottom: 0; border: none; }
 
@@ -131,18 +126,6 @@
     .media-card.playing img, .media-card.playing .play-btn { display: none; }
     .media-card .video-frame { display: none; width: 100%; aspect-ratio: 16/9; border: none; }
     .media-card.playing .video-frame { display: block; }
-
-    /* ── Audio ── */
-    .audio-coming {
-      text-align: center; padding: 3rem 0;
-      color: var(--slate); font-style: italic; font-size: 0.95em;
-    }
-
-    /* ── Galerie-Raster ── */
-    .gallery-coming {
-      text-align: center; padding: 3rem 0;
-      color: var(--slate); font-style: italic; font-size: 0.95em;
-    }
 
     /* ── Fußzeile ── */
     .site-footer { background: var(--paper-soft); padding: 0.9rem 2rem; border-top: 1px solid var(--rule); }
@@ -231,8 +214,6 @@
     }
     .ig-col { width: 100%; max-width: 480px; }
     .fb-col { grid-column: 1 / -1; display: flex; justify-content: center; }
-    .ig-note { color: var(--slate); font-size: 0.9em; margin-top: 0.5rem; }
-    .ig-note a:hover { color: var(--ink); }
 
     /* ── Facebook card ── */
     .fb-card {
@@ -253,7 +234,6 @@
 
     /* ── SoundCloud ── */
     .sc-wrap { margin-top: 0; }
-    .audio-note { font-size: 0.78em; color: var(--slate); font-style: italic; margin-top: 0.6rem; }
 
     /* ── Press kit ── */
     .presskit-lead { max-width: 640px; margin: 0 auto 2rem; text-align: center; color: var(--slate); font-size: 0.98em; }
@@ -287,10 +267,10 @@
       <a class="navbar-brand justify-content-center" href="index.html">Home</a>
       <ul class="navbar-nav text-md-nowrap">
         <li class="nav-item"><a class="nav-link" href="home-de.html">Bianca Cucini</a></li>
-        <li class="nav-item"><a class="nav-link" href="quinton-de.html">Quinton</a></li>
-        <li class="nav-item"><a class="nav-link" href="collaborazioni-de.html">Zusammenarbeiten</a></li>
-        <li class="nav-item"><a class="nav-link active" href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link" href="agenda-de.html">Agenda</a></li>
+        <li class="nav-item"><a class="nav-link" href="collaborazioni-de.html">Zusammenarbeiten</a></li>
+        <li class="nav-item"><a class="nav-link" href="quinton-de.html">Quinton</a></li>
+        <li class="nav-item"><a class="nav-link active" href="media-de.html">Medien</a></li>
         <li class="nav-item"><a class="nav-link" href="contatti-de.html">Kontakt</a></li>
       </ul>
     </div>
