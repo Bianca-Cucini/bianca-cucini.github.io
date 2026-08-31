@@ -203,10 +203,11 @@
         .formazione-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");}
         .attivita-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_2_mini.jpeg"); }
       }
-      /* Tablet (iPad Air 4, iPad Pro 11, Galaxy Tab S7, ecc.): background-attachment:fixed
-         è inaffidabile su questi browser (foto tagliata/non centrata), si disattiva
-         senza toccare telefoni o desktop */
-      @media (min-width: 769px) and (max-width: 1280px) {
+      /* Touch senza hover (iPad, tablet Android, ecc.): background-attachment:fixed
+         è inaffidabile su questi dispositivi (foto tagliata/non centrata) qualunque
+         sia la larghezza dello schermo — testare la capacità di hover invece di
+         indovinare le dimensioni di ogni modello, si disattiva senza toccare desktop/laptop */
+      @media (hover: none) and (pointer: coarse) {
         .formazione-parallax, .attivita-parallax { background-attachment: scroll; }
       }
 

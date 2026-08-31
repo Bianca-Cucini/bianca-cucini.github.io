@@ -103,8 +103,11 @@
       .footer-inner { justify-content: center; text-align: center; }
     }
     #quinton { background-image: linear-gradient(rgba(23,25,27,0.5), rgba(23,25,27,0.5)), url("imgs/Bianca/Foto/quinton.png"); aspect-ratio: 1678 / 937; min-height: 0; }
-    /* Tablets (iPad Air 4, iPad Pro 11, Galaxy Tab S7, etc.): background-attachment:fixed is unreliable on these browsers, disabled here without touching phones or desktop */
-    @media (min-width: 769px) and (max-width: 1280px) {
+    /* Touch without hover (iPad, Android tablets, etc.): background-attachment:fixed is
+       unreliable on these devices regardless of screen width — test hover capability
+       instead of guessing each model's size (the previous 1280px cap excluded e.g. the
+       12.9" iPad Pro, 1366px wide in landscape), disabled here without touching desktop/laptop */
+    @media (hover: none) and (pointer: coarse) {
       #quinton { background-attachment: scroll; }
     }
   </style>

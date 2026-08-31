@@ -199,10 +199,11 @@
         .formazione-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");}
         .attivita-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_2_mini.jpeg"); }
       }
-      /* Tablet (iPad Air 4, iPad Pro 11, Galaxy Tab S7, usw.): background-attachment:fixed
-         ist auf diesen Browsern unzuverlässig (Foto beschnitten/nicht zentriert), wird
-         deaktiviert, ohne Telefone oder Desktop zu beeinflussen */
-      @media (min-width: 769px) and (max-width: 1280px) {
+      /* Touch ohne Hover (iPad, Android-Tablets, usw.): background-attachment:fixed ist
+         auf diesen Geräten unabhängig von der Bildschirmbreite unzuverlässig (Foto
+         beschnitten/nicht zentriert) — Hover-Fähigkeit testen statt die Größe jedes
+         Modells zu erraten, wird deaktiviert, ohne Desktop/Laptop zu beeinflussen */
+      @media (hover: none) and (pointer: coarse) {
         .formazione-parallax, .attivita-parallax { background-attachment: scroll; }
       }
 
