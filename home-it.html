@@ -161,8 +161,7 @@
       .box-frame p + .box-kicker,
       .box-frame .awards-timeline + .box-kicker { margin-top: 1.4em; }
 
-      /* Foto: occupa tutta la colonna, nessun margine — la cornice è un
-         outline interno "stampato" sopra l'immagine, non un bordo esterno */
+      /* Foto: occupa tutta la colonna, nessun margine */
       .box-photo-wrap {
         display: block;
         height: 100%;
@@ -173,8 +172,6 @@
         min-height: 320px;
         object-fit: cover;
         display: block;
-        outline: 1.5px solid var(--frame-color);
-        outline-offset: -54px;
       }
 
       /* Formazione — layout scorrevole: testo pieno, poi banda fotografica
@@ -205,6 +202,12 @@
       @media (max-width: 768px) {
         .formazione-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");}
         .attivita-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_2_mini.jpeg"); }
+      }
+      /* Tablet (iPad Air 4, iPad Pro 11, Galaxy Tab S7, ecc.): background-attachment:fixed
+         è inaffidabile su questi browser (foto tagliata/non centrata), si disattiva
+         senza toccare telefoni o desktop */
+      @media (min-width: 769px) and (max-width: 1280px) {
+        .formazione-parallax, .attivita-parallax { background-attachment: scroll; }
       }
 
       /* Attività concertistica — banda intera, testo giustificato e disteso */

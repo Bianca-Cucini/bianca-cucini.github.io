@@ -157,8 +157,7 @@
       .box-frame p + .box-kicker,
       .box-frame .awards-timeline + .box-kicker { margin-top: 1.4em; }
 
-      /* Photo: fills the whole column, no margin — the frame is an
-         inset outline "printed" on the image, not an outer border */
+      /* Photo: fills the whole column, no margin */
       .box-photo-wrap {
         display: block;
         height: 100%;
@@ -169,8 +168,6 @@
         min-height: 320px;
         object-fit: cover;
         display: block;
-        outline: 1.5px solid var(--frame-color);
-        outline-offset: -54px;
       }
 
       /* Education — flowing layout: full-width text, then a parallax photo
@@ -199,8 +196,14 @@
         background-size: cover;
       }
       @media (max-width: 768px) {
-        .formazione-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");} 
+        .formazione-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_1_mini.jpeg");}
         .attivita-parallax{min-height: 42vh; background-image: url("imgs/Bianca/Foto/ritratto_home_2_mini.jpeg"); }
+      }
+      /* Tablet (iPad Air 4, iPad Pro 11, Galaxy Tab S7, etc.): background-attachment:fixed
+         is unreliable on these browsers (cropped/off-center photo), disable it without
+         touching phones or desktop */
+      @media (min-width: 769px) and (max-width: 1280px) {
+        .formazione-parallax, .attivita-parallax { background-attachment: scroll; }
       }
 
       /* Concert activity — full-width band, justified, spread-out text */
