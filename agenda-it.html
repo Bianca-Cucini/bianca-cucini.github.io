@@ -83,6 +83,13 @@
     @media (max-width: 768px) {
       .agenda-hero { min-height: 40vh; background-attachment: scroll; }
     }
+    /* Touch senza hover (iPad, tablet Android, ecc.): background-attachment:fixed
+       è inaffidabile su questi dispositivi qualunque sia la larghezza dello schermo —
+       testare la capacità di hover invece di indovinare le dimensioni di ogni modello,
+       si disattiva senza toccare desktop/laptop */
+    @media (hover: none) and (pointer: coarse) {
+      .agenda-hero { background-attachment: scroll; }
+    }
 
     /* ── Section headers ── */
     .section-label {

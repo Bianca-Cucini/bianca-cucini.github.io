@@ -79,6 +79,13 @@
     @media (max-width: 1024px) {
       .parallax { min-height: 50vh; background-attachment: scroll; }
     }
+    /* Touch without hover (iPad, Android tablets, etc.): background-attachment:fixed
+       is unreliable on these devices regardless of screen width — test hover
+       capability instead of guessing each model's size, disable it without touching
+       desktop/laptop */
+    @media (hover: none) and (pointer: coarse) {
+      .parallax { background-attachment: scroll; }
+    }
 
     .parallax-title h1 {
       font-size: clamp(2rem, 6vw, 4rem);
