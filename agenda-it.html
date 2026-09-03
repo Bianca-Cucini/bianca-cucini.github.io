@@ -428,9 +428,9 @@
 
     <!-- ╔══════════════════════════════════════════════════════════════╗
          ║  COME AGGIUNGERE UN CONCERTO                                ║
-         ║  Copia uno dei blocchi qui sotto e modifica i valori.       ║
-         ║  Lascia upcoming: true per i concerti futuri,               ║
-         ║  upcoming: false per l'archivio.                            ║
+         ║  Non modificare questo file: aggiungere una riga al foglio  ║
+         ║  Google di Bianca. Il sito futuro/passato viene calcolato   ║
+         ║  automaticamente in base alla data, non serve un flag.      ║
          ╚══════════════════════════════════════════════════════════════╝ -->
     <div class="timeline" id="upcoming-timeline"></div>
     <p class="no-concerts" id="no-upcoming" style="display:none;">Nessun concerto in programma al momento. Torna presto!</p>
@@ -468,213 +468,141 @@
 
   <script>
   /* ════════════════════════════════════════════════════════════════════
-     AGENDA — dati caricati da Google Sheets
-     Per aggiungere o modificare concerti, usare il foglio Google.
-     Il sito si aggiorna entro qualche minuto dal salvataggio.
+     AGENDA — dati letti da agenda-data.json (stesso dominio del sito).
+     Il file viene aggiornato automaticamente una volta al giorno da uno
+     script Google Apps Script agganciato al foglio Google di Bianca, che
+     legge il foglio e lo pubblica su questo repository via GitHub API.
+     Per aggiungere o modificare concerti, usare il foglio Google:
+     https://docs.google.com/spreadsheets/d/e/2PACX-1vQwq0Sgn_ptcKAm437zvsWvl6MWd1nIruGdLtm2Tkc3llKFXy4arHmOAYwwo-PjjUtqSvPdeb5jVVRg/pub?gid=0&single=true&output=csv
+     Il sito si aggiorna entro 24 ore dal salvataggio sul foglio.
   ════════════════════════════════════════════════════════════════════ */
-
-  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQwq0Sgn_ptcKAm437zvsWvl6MWd1nIruGdLtm2Tkc3llKFXy4arHmOAYwwo-PjjUtqSvPdeb5jVVRg/pub?gid=0&single=true&output=csv';
 
   /* ── Fallback: usato se il foglio Google non è raggiungibile ── */
   var FALLBACK_CONCERTS = [
 
     /* ── PROSSIMI CONCERTI ── */
     {
-      date: "2026-09-05",
+      date: "2026-09-05", date_end: "", time: "19:00:00",
+      venue: "Iglesia de San Miguel", city: "Estella (ESP)",
+      festival: "Semana de Música Antigua de Estella",
+      ensemble: "Conductus e La Chimera",
       program: "Buxtehude - Membra Jesu Nostri",
-      venue: "Iglesia de San Miguel",
-      city: "Estella (ESP)",
-      note: "Conductus e La Chimera — Semana de Música Antigua de Estella",
-      lat: 42.6716, lng: -2.0283,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 42.6716, lng: -2.0283, info: ""
     },
     {
-      date: "2026-09-06",
+      date: "2026-09-06", date_end: "", time: "20:30:00",
+      venue: "Palais Mamming", city: "Merano (IT)",
+      festival: "Südtirol Festival",
+      ensemble: "Tra Noi",
       program: "Im Kreise Ottobonis",
-      venue: "Palais Mamming",
-      city: "Merano (IT)",
-      note: "Tra Noi — Südtirol Festival",
-      lat: 46.6715, lng: 11.1659,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 46.6715, lng: 11.1659, info: ""
     },
     {
-      date: "2026-09-20",
+      date: "2026-09-20", date_end: "", time: "21:15:00",
+      venue: "Auditorium Sant'Apollonia", city: "Firenze (IT)",
+      festival: "Festival Floremus",
+      ensemble: "Home Armé",
       program: "Tra l'Arno e il Mincio",
-      venue: "Auditorium Sant'Apollonia",
-      city: "Firenze (IT)",
-      note: "Home Armé — Festival Floremus",
-      lat: 43.7780, lng: 11.2565,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 43.7780, lng: 11.2565, info: ""
     },
     {
-      date: "2026-10-11",
+      date: "2026-10-11", date_end: "", time: "19:00:00",
+      venue: "Festsaal im Rathaus", city: "Pfaffenhofen (DE)",
+      festival: "Rathaus Konzerte",
+      ensemble: "Tra Noi",
       program: "Memento Vivere",
-      venue: "Festsaal im Rathaus",
-      city: "Pfaffenhofen (DE)",
-      note: "Tra Noi — Rathaus Konzerte",
-      lat: 48.5296, lng: 11.5088,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 48.5296, lng: 11.5088, info: ""
     },
     {
-      date: "2026-11-08",
+      date: "2026-11-08", date_end: "", time: "17:30:00",
+      venue: "Sala dei Libri Antichi, Piazza San Lorenzo", city: "Firenze (IT)",
+      festival: "",
+      ensemble: "Duo Cucini-González",
       program: "Vocibus",
-      venue: "Sala dei Libri Antichi, Piazza San Lorenzo",
-      city: "Firenze (IT)",
-      note: "Duo Cucini-González",
-      lat: 43.7750, lng: 11.2547,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 43.7750, lng: 11.2547, info: ""
     },
     {
-      date: "2026-11-27",
+      date: "2026-11-27", date_end: "", time: "19:00:00",
+      venue: "SWR Kultur Villa Musica", city: "Trier (DE)",
+      festival: "",
+      ensemble: "Zuléia",
       program: "A Tre",
-      venue: "SWR Kultur Villa Musica",
-      city: "Trier (DE)",
-      note: "Zuléia",
-      lat: 49.7501, lng: 6.6372,
-      upcoming: true,
-      instagram: "",
-      facebook: ""
+      lat: 49.7501, lng: 6.6372, info: ""
     },
 
     /* ── ARCHIVIO CONCERTI ──────────────────────────────────────────
        Selezione di concerti passati, presa dal foglio Google live
        il giorno della correzione di questo fallback (settembre 2026).
-       Per l'elenco completo vedi il foglio Google collegato sopra.
+       Per l'elenco completo vedi agenda-data.json / il foglio Google.
     ────────────────────────────────────────────────────────────── */
     {
-      date: "2026-08-14",
+      date: "2026-08-14", date_end: "", time: "20:00:00",
+      venue: "Schloss Au", city: "Zürich (CH)",
+      festival: "",
+      ensemble: "Little Light Consort",
       program: "For Several Friends",
-      venue: "Schloss Au",
-      city: "Zürich (CH)",
-      note: "Little Light Consort",
-      lat: 47.2502, lng: 8.6394,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 47.2502, lng: 8.6394, info: ""
     },
     {
-      date: "2026-06-12",
+      date: "2026-06-12", date_end: "", time: "19:30:00",
+      venue: "Museum Kleines Klingental", city: "Basel (CH)",
+      festival: "",
+      ensemble: "Orpheus Ensemble Basel",
       program: "Altri Canti d'amor",
-      venue: "Museum Kleines Klingental",
-      city: "Basel (CH)",
-      note: "Orpheus Ensemble Basel",
-      lat: 47.5621, lng: 7.5897,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 47.5621, lng: 7.5897, info: ""
     },
     {
-      date: "2026-04-02",
+      date: "2026-04-02", date_end: "", time: "21:00:00",
+      venue: "Kölner Philharmonie", city: "Köln (DE)",
+      festival: "",
+      ensemble: "Gli Incogniti e Voces Suaves",
       program: "Tenebrae - Buxtehude Membra Jesu Nostri",
-      venue: "Kölner Philharmonie",
-      city: "Köln (DE)",
-      note: "Gli Incogniti e Voces Suaves",
-      lat: 50.9407, lng: 6.9607,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 50.9407, lng: 6.9607, info: ""
     },
     {
-      date: "2026-03-29",
+      date: "2026-03-29", date_end: "", time: "17:00:00",
+      venue: "Mierscher Theater", city: "Luxembourg (LUX)",
+      festival: "",
+      ensemble: "La Chimera",
       program: "Il Palazzo Di Atlante",
-      venue: "Mierscher Theater",
-      city: "Luxembourg (LUX)",
-      note: "La Chimera",
-      lat: 49.7484, lng: 6.1042,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 49.7484, lng: 6.1042, info: ""
     },
     {
-      date: "2025-11-22",
+      date: "2025-11-22", date_end: "", time: "11:00:00",
+      venue: "Bayerisches Nationalmuseum", city: "München (DE)",
+      festival: "",
+      ensemble: "Tra Noi",
       program: "Bach - Dialog Ungleicher Freunde",
-      venue: "Bayerisches Nationalmuseum",
-      city: "München (DE)",
-      note: "Tra Noi",
-      lat: 48.1431, lng: 11.5910,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 48.1431, lng: 11.5910, info: ""
     },
     {
-      date: "2025-10-04",
+      date: "2025-10-04", date_end: "", time: "16:00:00",
+      venue: "Sumko Dvaro", city: "Vilnius (LT)",
+      festival: "",
+      ensemble: "Orpheus Ensemble Basel",
       program: "Dolci miei sospiri",
-      venue: "Sumko Dvaro",
-      city: "Vilnius (LT)",
-      note: "Orpheus Ensemble Basel",
-      lat: 54.6943, lng: 25.3088,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 54.6943, lng: 25.3088, info: ""
     },
     {
-      date: "2025-08-02",
+      date: "2025-08-02", date_end: "", time: "20:00:00",
+      venue: "Spanischer Saal, Schloss Ambras", city: "Innsbruck (AT)",
+      festival: "Innsbrucker Festwochen der Alte Musik",
+      ensemble: "La Chimera & Céline Scheen",
       program: "The Queen's Lover",
-      venue: "Spanischer Saal, Schloss Ambras",
-      city: "Innsbruck (AT)",
-      note: "La Chimera & Céline Scheen — Innsbrucker Festwochen der Alte Musik",
-      lat: 47.2567, lng: 11.4349,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 47.2567, lng: 11.4349, info: ""
     },
     {
-      date: "2025-06-15",
+      date: "2025-06-15", date_end: "", time: "18:00:00",
+      venue: "Convento dos Capuchos", city: "Almada (PT)",
+      festival: "Festival dos Capuchos",
+      ensemble: "Tra Noi",
       program: "Telemann goes East",
-      venue: "Convento dos Capuchos",
-      city: "Almada (PT)",
-      note: "Tra Noi — Festival dos Capuchos",
-      lat: 38.6454, lng: -9.2220,
-      upcoming: false,
-      instagram: "",
-      facebook: ""
+      lat: 38.6454, lng: -9.2220, info: ""
     }
   ];
   /* ════ fine fallback ════ */
 
   /* ── CSV parser ── */
-  function parseCSVLine(line) {
-    var result = [], cur = '', inQuotes = false;
-    for (var i = 0; i < line.length; i++) {
-      var ch = line[i];
-      if (ch === '"') { inQuotes = !inQuotes; }
-      else if (ch === ',' && !inQuotes) { result.push(cur); cur = ''; }
-      else { cur += ch; }
-    }
-    result.push(cur);
-    return result;
-  }
-
-  function parseCSV(text) {
-    var lines = text.replace(/\r/g, '').split('\n');
-    var headers = parseCSVLine(lines[0]).map(function(h) { return h.trim().replace(/^"|"$/g, ''); });
-    var concerts = [];
-    for (var i = 1; i < lines.length; i++) {
-      var line = lines[i].trim();
-      if (!line) continue;
-      var cols = parseCSVLine(line);
-      var c = {};
-      headers.forEach(function(h, idx) {
-        c[h] = (cols[idx] || '').trim().replace(/^"|"$/g, '');
-      });
-      if (!c.date || !c.date.match(/^\d{4}-\d{2}-\d{2}$/)) continue;
-      c.lat = parseFloat(c.lat) || 0;
-      c.lng = parseFloat(c.lng) || 0;
-      concerts.push(c);
-    }
-    return concerts;
-  }
-
   /* ── helpers ── */
   var DAYS   = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
   var MONTHS = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
@@ -939,20 +867,20 @@
     }
   }
 
-  /* ── fetch dal foglio Google, con fallback ── */
+  /* ── fetch di agenda-data.json (stesso dominio), con fallback ── */
   document.getElementById('upcoming-timeline').innerHTML =
     '<p style="color:#aaa;font-style:italic;padding:1rem 0;">Caricamento concerti...</p>';
 
-  fetch(SHEET_CSV)
+  fetch('agenda-data.json')
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
+      return r.json();
     })
-    .then(function(text) {
-      initAgenda(parseCSV(text));
+    .then(function(data) {
+      initAgenda(data);
     })
     .catch(function(err) {
-      console.warn('Google Sheets non raggiungibile, uso fallback:', err);
+      console.warn('agenda-data.json non raggiungibile, uso fallback:', err);
       initAgenda(FALLBACK_CONCERTS);
     });
 
